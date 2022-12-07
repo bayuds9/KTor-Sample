@@ -2,10 +2,8 @@ package com.flowerencee.models.databases
 
 import com.flowerencee.models.data.body.UserAccount
 import com.flowerencee.models.data.request.LoginRequest
-import com.flowerencee.models.databases.entities.AccountEntity
-import com.flowerencee.models.databases.entities.AccountTable
-import com.flowerencee.models.databases.entities.ProfileEntity
-import com.flowerencee.models.databases.entities.ProfileTable
+import com.flowerencee.models.data.response.StatusResponse
+import com.flowerencee.models.databases.entities.*
 import org.ktorm.database.Database
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
@@ -39,6 +37,10 @@ class DatabaseManager {
     }
     fun getProfile(): List<ProfileEntity> {
         return kTormDatabase.sequenceOf(ProfileTable).toList()
+    }
+
+    fun getConfig(): List<ConfigEntity> {
+        return kTormDatabase.sequenceOf(ConfigTable).toList()
     }
 
 }

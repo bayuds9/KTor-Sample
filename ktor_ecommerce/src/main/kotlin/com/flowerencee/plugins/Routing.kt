@@ -4,7 +4,11 @@ import com.flowerencee.models.data.request.LoginRequest
 import com.flowerencee.models.data.response.LoginResponse
 import com.flowerencee.models.data.response.ProfileByIdResponse
 import com.flowerencee.models.data.response.StatusResponse
+import com.flowerencee.models.remote.ConfigRemote
 import com.flowerencee.models.remote.UserRemote
+import com.flowerencee.models.support.ConfigParam.CRED_NOT_FOUND
+import com.flowerencee.models.support.ConfigParam.INVALID_CREDENTIAL
+import com.flowerencee.models.support.ConfigParam.USER_ID_NOT_FOUND
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -19,6 +23,7 @@ fun Application.configureRouting() {
             call.respond("Hello World")
         }
         val userRemote = UserRemote()
+        val configRemote = ConfigRemote()
 
 
         post("/login") {
@@ -26,12 +31,7 @@ fun Application.configureRouting() {
             val user = userRemote.loginUser(request)
             val response = LoginResponse()
             if (user == null) {
-                response.statusResponse = StatusResponse()
-                response.statusResponse?.apply {
-                    error = true
-                    message = "Credentials Invalid"
-                    errorCode = "0001"
-                }
+                response.statusResponse = configRemote.getErrorResponse(INVALID_CREDENTIAL)
                 call.respond(HttpStatusCode.BadRequest, response)
                 return@post
             }
@@ -44,23 +44,13 @@ fun Application.configureRouting() {
             val profileId = call.parameters["profileId"]
             val response = ProfileByIdResponse()
             if (profileId == null) {
-                response.statusResponse = StatusResponse()
-                response.statusResponse?.apply {
-                    error = true
-                    message = "Invalid User Id"
-                    errorCode = "0002"
-                }
+                response.statusResponse = configRemote.getErrorResponse(CRED_NOT_FOUND)
                 call.respond(HttpStatusCode.NotFound, response)
                 return@get
             }
             val user = userRemote.getUserById(profileId)
             if (user == null) {
-                response.statusResponse = StatusResponse()
-                response.statusResponse?.apply {
-                    error = true
-                    message = "User Id Not Found"
-                    errorCode = "0003"
-                }
+                response.statusResponse = configRemote.getErrorResponse(USER_ID_NOT_FOUND)
                 call.respond(HttpStatusCode.BadRequest, response)
             }
             else {
@@ -69,5 +59,6 @@ fun Application.configureRouting() {
                 call.respond(HttpStatusCode.OK, response)
             }
         }
+
     }
 }
