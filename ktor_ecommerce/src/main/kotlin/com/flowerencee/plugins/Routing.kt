@@ -2,6 +2,7 @@ package com.flowerencee.plugins
 
 import com.flowerencee.models.data.request.LoginRequest
 import com.flowerencee.models.data.response.LoginResponse
+import com.flowerencee.models.data.response.ProfileByIdResponse
 import com.flowerencee.models.data.response.StatusResponse
 import com.flowerencee.models.remote.UserRemote
 import io.ktor.http.*
@@ -37,6 +38,36 @@ fun Application.configureRouting() {
             response.statusResponse = null
             response.loginData = user
             call.respond(HttpStatusCode.OK, response)
+        }
+
+        get("/user/{profileId}") {
+            val profileId = call.parameters["profileId"]
+            val response = ProfileByIdResponse()
+            if (profileId == null) {
+                response.statusResponse = StatusResponse()
+                response.statusResponse?.apply {
+                    error = true
+                    message = "Invalid User Id"
+                    errorCode = "0002"
+                }
+                call.respond(HttpStatusCode.NotFound, response)
+                return@get
+            }
+            val user = userRemote.getUserById(profileId)
+            if (user == null) {
+                response.statusResponse = StatusResponse()
+                response.statusResponse?.apply {
+                    error = true
+                    message = "User Id Not Found"
+                    errorCode = "0003"
+                }
+                call.respond(HttpStatusCode.BadRequest, response)
+            }
+            else {
+                response.statusResponse = null
+                response.profileData = user
+                call.respond(HttpStatusCode.OK, response)
+            }
         }
     }
 }

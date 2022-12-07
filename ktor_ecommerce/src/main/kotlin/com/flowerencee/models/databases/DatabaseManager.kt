@@ -1,8 +1,11 @@
 package com.flowerencee.models.databases
 
+import com.flowerencee.models.data.body.UserAccount
 import com.flowerencee.models.data.request.LoginRequest
 import com.flowerencee.models.databases.entities.AccountEntity
 import com.flowerencee.models.databases.entities.AccountTable
+import com.flowerencee.models.databases.entities.ProfileEntity
+import com.flowerencee.models.databases.entities.ProfileTable
 import org.ktorm.database.Database
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
@@ -23,8 +26,19 @@ class DatabaseManager {
         return getAllUser().firstOrNull { it.email == request.email && it.password == request.password }
     }
 
+    fun getUserById(accountId: String) : UserAccount? {
+        val profileData = getProfile().firstOrNull { it.id == accountId }
+        val userData = getAllUser().firstOrNull {it.id == accountId}
+        return if (profileData != null && userData != null) {
+            UserAccount(profileData.name, userData.email, profileData.phone, profileData.address, profileData.imageUrl)
+        } else null
+    }
+
     fun getAllUser(): List<AccountEntity> {
         return kTormDatabase.sequenceOf(AccountTable).toList()
+    }
+    fun getProfile(): List<ProfileEntity> {
+        return kTormDatabase.sequenceOf(ProfileTable).toList()
     }
 
 }
