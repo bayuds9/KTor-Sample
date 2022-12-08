@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.flowerencee9.marketplace.app-mergeDebugResources-27:/values-v26/values-v26.xml",
+            "outputFile": "com.flowerencee9.marketplace.app-mergeDebugResources-37:/values-v26/values-v26.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\bayud\\.gradle\\caches\\transforms-3\\fc1f82018352b0cb2503b51beb61b53f\\transformed\\appcompat-1.5.1\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\bayud\\AppData\\Local\\Android\\Sdk\\caches\\transforms-3\\fc1f82018352b0cb2503b51beb61b53f\\transformed\\appcompat-1.5.1\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,3,4,8,12,16",
                         "startColumns": "4,4,4,4,4,4",

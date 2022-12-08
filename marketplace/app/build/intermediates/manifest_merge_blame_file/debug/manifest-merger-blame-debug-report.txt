@@ -15,7 +15,7 @@
 12        android:allowBackup="true"
 12-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:7:9-35
 13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-13-->[androidx.core:core:1.8.0] C:\Users\bayud\.gradle\caches\transforms-3\319818de8066db9dee1015fa48896948\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
+13-->[androidx.core:core:1.8.0] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\319818de8066db9dee1015fa48896948\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
 14        android:dataExtractionRules="@xml/data_extraction_rules"
 14-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:8:9-65
 15        android:debuggable="true"
@@ -33,8 +33,8 @@
 21-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:14:9-49
 22        <activity
 22-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:16:9-24:20
-23            android:name="com.flowerencee9.marketplace.MainActivity"
-23-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:17:13-41
+23            android:name="com.flowerencee9.marketplace.screens.main.MainActivity"
+23-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:17:13-54
 24            android:exported="true" >
 24-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:18:13-36
 25            <intent-filter>
@@ -50,25 +50,25 @@
 30        </activity>
 31
 32        <provider
-32-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\.gradle\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+32-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
 33            android:name="androidx.startup.InitializationProvider"
-33-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\.gradle\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+33-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
 34            android:authorities="com.flowerencee9.marketplace.androidx-startup"
-34-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\.gradle\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+34-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
 35            android:exported="false" >
-35-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\.gradle\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+35-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
 36            <meta-data
-36-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\.gradle\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+36-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
 37                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-37-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\.gradle\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+37-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
 38                android:value="androidx.startup" />
-38-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\.gradle\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+38-->[androidx.emoji2:emoji2:1.2.0] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\8646fc24a05f0f3fb603801ddeb6af39\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
 39            <meta-data
-39-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\bayud\.gradle\caches\transforms-3\a12ed9220754cce2dddf3ed6d58bf3a3\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+39-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\a12ed9220754cce2dddf3ed6d58bf3a3\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
 40                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-40-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\bayud\.gradle\caches\transforms-3\a12ed9220754cce2dddf3ed6d58bf3a3\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+40-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\a12ed9220754cce2dddf3ed6d58bf3a3\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
 41                android:value="androidx.startup" />
-41-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\bayud\.gradle\caches\transforms-3\a12ed9220754cce2dddf3ed6d58bf3a3\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+41-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\bayud\AppData\Local\Android\Sdk\caches\transforms-3\a12ed9220754cce2dddf3ed6d58bf3a3\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
 42        </provider>
 43    </application>
 44

@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Marketplace" >
         <activity
-            android:name="com.flowerencee9.marketplace.MainActivity"
+            android:name="com.flowerencee9.marketplace.screens.main.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
