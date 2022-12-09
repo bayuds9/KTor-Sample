@@ -9,4 +9,7 @@ object ConfigParam{
     const val PHONE_NOT_FOUND = "0006"
     const val USER_ID_NOT_FOUND = "0007"
     const val NO_DATA_ATTEMPT = "0008"
+    const val INVALID_INPUT_DATA = "0009"
+    const val UNKNOWN_ERROR = "0010"
+    const val FAILED_STORE_FILE = "0011"
 }
