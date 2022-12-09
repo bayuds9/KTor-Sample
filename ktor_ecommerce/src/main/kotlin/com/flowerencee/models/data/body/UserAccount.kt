@@ -5,5 +5,6 @@ data class UserAccount(
     var email: String? = null,
     var phone: String? = null,
     var address: String? = null,
-    var imageFile: String? = null
+    var imageFile: String? = null,
+    var dob: String? = null
 )

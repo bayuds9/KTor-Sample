@@ -10,6 +10,7 @@ object ProfileTable : Table<ProfileEntity>("user_profile") {
     val phone = varchar("profile_phone").bindTo { it.phone }
     val address = varchar("profile_address").bindTo { it.address }
     val imageUrl = varchar("profile_image").bindTo { it.imageUrl }
+    val dob = varchar("dob").bindTo { it.dob }
 }
 interface ProfileEntity : Entity<ProfileEntity> {
     companion object : Entity.Factory<ProfileEntity>()
@@ -18,4 +19,5 @@ interface ProfileEntity : Entity<ProfileEntity> {
     val phone: String
     val address: String
     val imageUrl: String
+    val dob: String
 }

@@ -3,6 +3,7 @@ package com.flowerencee.models.remote
 import com.flowerencee.models.data.body.Login
 import com.flowerencee.models.data.body.UserAccount
 import com.flowerencee.models.data.request.LoginRequest
+import com.flowerencee.models.data.request.UserListByDateRequest
 import com.flowerencee.models.databases.DatabaseManager
 import com.flowerencee.models.repositories.UserRepository
 
@@ -16,6 +17,10 @@ class UserRemote : UserRepository {
 
     override fun getUserById(accountId: String): UserAccount? {
         return database.getUserById(accountId)
+    }
+
+    override fun getUserListByDate(request: UserListByDateRequest): List<UserAccount> {
+        return database.getUserListByDate(request)
     }
 
 }

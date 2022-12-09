@@ -6,7 +6,7 @@ import io.ktor.server.netty.*
 import com.flowerencee.plugins.*
 
 fun main() {
-    val localHost = "10.1.1.203"
+    val localHost = "192.168.1.11"
     embeddedServer(Netty, port = 8080, host = localHost, module = Application::module)
         .start(wait = true)
 }

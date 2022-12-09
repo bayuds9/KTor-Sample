@@ -1,13 +1,15 @@
 package com.flowerencee.plugins
 
 import com.flowerencee.models.data.request.LoginRequest
+import com.flowerencee.models.data.request.UserListByDateRequest
 import com.flowerencee.models.data.response.LoginResponse
 import com.flowerencee.models.data.response.ProfileByIdResponse
-import com.flowerencee.models.data.response.StatusResponse
+import com.flowerencee.models.data.response.UserListByDateResponse
 import com.flowerencee.models.remote.ConfigRemote
 import com.flowerencee.models.remote.UserRemote
 import com.flowerencee.models.support.ConfigParam.CRED_NOT_FOUND
 import com.flowerencee.models.support.ConfigParam.INVALID_CREDENTIAL
+import com.flowerencee.models.support.ConfigParam.NO_DATA_ATTEMPT
 import com.flowerencee.models.support.ConfigParam.USER_ID_NOT_FOUND
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -60,5 +62,18 @@ fun Application.configureRouting() {
             }
         }
 
+        post("/userbydob") {
+            val request = call.receive<UserListByDateRequest>()
+            val response = UserListByDateResponse()
+            val userList = userRemote.getUserListByDate(request)
+            if (userList.isEmpty()) {
+                response.statusResponse = configRemote.getErrorResponse(NO_DATA_ATTEMPT)
+                call.respond(HttpStatusCode.BadRequest, response)
+            }
+            else {
+                response.profileList = userList.toCollection(ArrayList())
+                call.respond(HttpStatusCode.OK, response)
+            }
+        }
     }
 }

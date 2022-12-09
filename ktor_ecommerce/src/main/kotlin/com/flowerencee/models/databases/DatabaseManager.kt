@@ -2,11 +2,12 @@ package com.flowerencee.models.databases
 
 import com.flowerencee.models.data.body.UserAccount
 import com.flowerencee.models.data.request.LoginRequest
-import com.flowerencee.models.data.response.StatusResponse
+import com.flowerencee.models.data.request.UserListByDateRequest
 import com.flowerencee.models.databases.entities.*
 import org.ktorm.database.Database
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
+import java.time.LocalDate
 
 class DatabaseManager {
     private val hostname = "localhost"
@@ -28,8 +29,30 @@ class DatabaseManager {
         val profileData = getProfile().firstOrNull { it.id == accountId }
         val userData = getAllUser().firstOrNull {it.id == accountId}
         return if (profileData != null && userData != null) {
-            UserAccount(profileData.name, userData.email, profileData.phone, profileData.address, profileData.imageUrl)
+            UserAccount(profileData.name, userData.email, profileData.phone, profileData.address, profileData.imageUrl, profileData.dob)
         } else null
+    }
+    fun getUserListByDate(request: UserListByDateRequest): List<UserAccount> {
+        val end = LocalDate.parse(request.end)
+        val from = LocalDate.parse(request.start)
+        val userList = getProfile().filter { profile ->
+            val profileDate = LocalDate.parse(profile.dob)
+            profileDate.isAfter(from) && profileDate.isBefore(end)
+        }
+        val accountList = ArrayList<UserAccount>()
+        userList.forEach {
+            accountList.add(
+                UserAccount(
+                    it.name,
+                    getAllUser().firstOrNull { user -> user.id == it.id }?.email,
+                    it.phone,
+                    it.address,
+                    it.imageUrl,
+                    it.dob
+                )
+            )
+        }
+        return accountList
     }
 
     fun getAllUser(): List<AccountEntity> {
@@ -42,5 +65,6 @@ class DatabaseManager {
     fun getConfig(): List<ConfigEntity> {
         return kTormDatabase.sequenceOf(ConfigTable).toList()
     }
+
 
 }

@@ -9,6 +9,6 @@ class ConfigRemote : ConfigRepository {
 
     private val database = DatabaseManager()
     override fun getErrorResponse(param: String): StatusResponse? {
-        return database.getConfig().firstOrNull { it.errorCode == param }?.let { StatusResponse(true, it.errorCode, it.message) }
+        return database.getConfig().firstOrNull { it.errorCode == param }?.let { StatusResponse(true, it.message, it.errorCode) }
     }
 }
