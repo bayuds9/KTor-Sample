@@ -1,6 +1,7 @@
 package com.flowerencee.plugins
 
 import com.flowerencee.models.support.Constants.IMAGE_DIRECTORY
+import com.flowerencee.models.support.Constants.PRODUCT
 import com.flowerencee.models.support.Constants.PUBLIC_IMAGE_DIRECTORY
 import com.flowerencee.models.support.Constants.STORAGE_DIRECTORY
 import com.flowerencee.models.support.Constants.USER_PROFILE
@@ -38,6 +39,7 @@ fun String.encodeFileToBase64(): String? {
 fun storageDirectory() = STORAGE_DIRECTORY
 fun publicImageDirectory() = storageDirectory() + IMAGE_DIRECTORY + PUBLIC_IMAGE_DIRECTORY
 fun profileDirectory() = publicImageDirectory() + USER_PROFILE
+fun productDirectory() = publicImageDirectory() + PRODUCT
 fun getTimeNow(format: String = "dd-MMM-yyy | HH:mm"): String {
     val calendar = Calendar.getInstance().time
     val value = SimpleDateFormat(format, Locale.getDefault())

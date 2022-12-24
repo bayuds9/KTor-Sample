@@ -1,10 +1,7 @@
 package com.flowerencee.models.databases
 
 import com.flowerencee.models.data.body.UserAccount
-import com.flowerencee.models.data.request.LoginRequest
-import com.flowerencee.models.data.request.RegisterAccountRequest
-import com.flowerencee.models.data.request.RegisterMerchantRequest
-import com.flowerencee.models.data.request.UserListByDateRequest
+import com.flowerencee.models.data.request.*
 import com.flowerencee.models.databases.entities.*
 import com.flowerencee.models.support.Base65536
 import com.flowerencee.models.support.PARAMETERS
@@ -29,6 +26,8 @@ class DatabaseManager {
         val jdbcUrl = "jdbc:mysql://$hostname:3306/$databaseName?user=$username&password=$password&useSSL=false"
         kTormDatabase = Database.connect(jdbcUrl)
     }
+
+    /*User Management*/
 
     fun register(request: RegisterAccountRequest): String {
         val profileId = generateId(PARAMETERS.PARAM_ID.ACCOUNT)
@@ -197,6 +196,82 @@ class DatabaseManager {
     private fun getProfile(): List<ProfileEntity> {
         return kTormDatabase.sequenceOf(ProfileTable).toList()
     }
+
+
+    /*Product Management*/
+    fun validateMerchantId(id: String) : Boolean {
+        return kTormDatabase.sequenceOf(MerchantTable).toList().any { it.merchantId == id }
+    }
+    fun insertProductImages(image: String, productId: String): Boolean {
+        return try {
+            ProductImageTable.let { img ->
+                kTormDatabase.insert(img) {
+                    set(img.productId, productId)
+                    set(img.fileName, image)
+                }
+            }
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+    fun createProduct(request: CreateProductRequest): String {
+        val productId = generateId(PARAMETERS.PARAM_ID.PRODUCT)
+        return try {
+            kTormDatabase.useTransaction { transaction ->
+                try {
+                    val insertProduct = insertProduct(request, productId)
+                    if (insertProduct) transaction.commit()
+                    else transaction.rollback()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } catch (t: Throwable) {
+                    t.printStackTrace()
+                }
+            }
+            productId
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ""
+        }
+    }
+
+    private fun insertProduct(request: CreateProductRequest, productId: String) : Boolean {
+        return try {
+            ProductTable.let { product ->
+                kTormDatabase.insert(product) {
+                    set(product.productId, productId)
+                    set(product.merchantId, request.merchantId)
+                    set(product.productName, request.name)
+                    set(product.productDesc, request.desc)
+                    set(product.productPrice, request.price)
+                    set(product.productCategory, request.category)
+                    set(product.productStock, request.stock)
+                    set(product.createdAt, getTimeNow("yyyy-MM-dd"))
+                }
+            }
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    fun getProduct() : List<ProductEntity> {
+        return kTormDatabase.sequenceOf(ProductTable).toList()
+    }
+
+    fun getProductImages(id: String) : List<String> {
+        val data = kTormDatabase.sequenceOf(ProductImageTable).toList()
+        val imageList = ArrayList<String>()
+        data.filter { it.productId == id }.forEach {
+            imageList.add(it.fileName)
+        }
+        return imageList
+    }
+
+    /*Global Management*/
 
     fun getConfig(): List<ConfigEntity> {
         return kTormDatabase.sequenceOf(ConfigTable).toList()

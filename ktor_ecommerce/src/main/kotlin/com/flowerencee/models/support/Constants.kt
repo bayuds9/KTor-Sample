@@ -6,6 +6,7 @@ object Constants {
     const val IMAGE_DIRECTORY = "/image"
     const val PUBLIC_IMAGE_DIRECTORY = "/public"
     const val USER_PROFILE = "/profile"
+    const val PRODUCT = "/product"
 }
 
 interface PARAMETERS {

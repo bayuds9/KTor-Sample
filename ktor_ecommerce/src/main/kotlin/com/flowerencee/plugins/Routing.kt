@@ -1,14 +1,9 @@
 package com.flowerencee.plugins
 
-import com.flowerencee.models.data.request.LoginRequest
-import com.flowerencee.models.data.request.RegisterAccountRequest
-import com.flowerencee.models.data.request.UpdateImageProfileRequest
-import com.flowerencee.models.data.request.UserListByDateRequest
-import com.flowerencee.models.data.response.LoginResponse
-import com.flowerencee.models.data.response.ProfileByIdResponse
-import com.flowerencee.models.data.response.StatusResponse
-import com.flowerencee.models.data.response.UserListByDateResponse
+import com.flowerencee.models.data.request.*
+import com.flowerencee.models.data.response.*
 import com.flowerencee.models.remote.ConfigRemote
+import com.flowerencee.models.remote.ProductRemote
 import com.flowerencee.models.remote.UserRemote
 import com.flowerencee.models.support.ConfigParam.CRED_NOT_FOUND
 import com.flowerencee.models.support.ConfigParam.DUPLICATE_EMAIL
@@ -17,6 +12,7 @@ import com.flowerencee.models.support.ConfigParam.FAILED_STORE_FILE
 import com.flowerencee.models.support.ConfigParam.INVALID_CREDENTIAL
 import com.flowerencee.models.support.ConfigParam.INVALID_INPUT_DATA
 import com.flowerencee.models.support.ConfigParam.NO_DATA_ATTEMPT
+import com.flowerencee.models.support.ConfigParam.PRODUCT_ID_NOT_FOUND
 import com.flowerencee.models.support.ConfigParam.UNKNOWN_ERROR
 import com.flowerencee.models.support.ConfigParam.USER_ID_NOT_FOUND
 import io.ktor.http.*
@@ -27,15 +23,14 @@ import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
 
+    val configRemote = ConfigRemote()
+    val userRemote = UserRemote()
+    val productRemote = ProductRemote()
 
     routing {
         get("/") {
             call.respond("Hello World")
         }
-
-        val userRemote = UserRemote()
-        val configRemote = ConfigRemote()
-
 
         post("/login") {
             val request = call.receive<LoginRequest>()
@@ -126,7 +121,6 @@ fun Application.configureRouting() {
                 return@post
             } else {
                 val storeImage = userRemote.storeProfileImage(request.image64, accountId)
-                println("success store image ")
                 if (storeImage) {
                     response = StatusResponse(false, "SUCCESS")
                     call.respond(HttpStatusCode.OK, response)
@@ -152,6 +146,75 @@ fun Application.configureRouting() {
             } else {
                 response = configRemote.getErrorResponse(FAILED_STORE_FILE) ?: StatusResponse()
                 call.respond(HttpStatusCode.ExpectationFailed, response)
+            }
+        }
+    }
+
+    routing {
+
+        post("/product/createproduct") {
+            val request = call.receive<CreateProductRequest>()
+            val response: StatusResponse
+            val merchantValid = productRemote.validateMerchantId(request.merchantId)
+            if (!merchantValid || request.name.isEmpty() || request.desc.isEmpty() || request.category.isEmpty() || request.price == 0.0 || request.stock == 0 || request.image.isEmpty()) {
+                response = configRemote.getErrorResponse(INVALID_INPUT_DATA) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
+                return@post
+            }
+            val productId = try {
+                productRemote.createProduct(request)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                ""
+            }
+            if (productId.isEmpty()) {
+                response = configRemote.getErrorResponse(UNKNOWN_ERROR) ?: StatusResponse()
+                call.respond(HttpStatusCode.ExpectationFailed, response)
+                return@post
+            }
+            else {
+                val storeProductImage = productRemote.storeProductImage(request.image, productId)
+                println("storeproductimage $storeProductImage")
+                if (storeProductImage) {
+                    response = StatusResponse(false, "SUCCESS")
+                    call.respond(HttpStatusCode.OK, response)
+                } else {
+                    response = configRemote.getErrorResponse(FAILED_STORE_FILE) ?: StatusResponse()
+                    call.respond(HttpStatusCode.ExpectationFailed, response)
+                }
+            }
+
+        }
+
+        get("/product/getProductById/{productId}") {
+            val productId = call.parameters["productId"]
+            val response = ProductResponse()
+            if (productId == null) {
+                response.statusResponse = configRemote.getErrorResponse(PRODUCT_ID_NOT_FOUND)
+                call.respond(HttpStatusCode.NotFound, response)
+                return@get
+            }
+            val product = productRemote.getProduct(productId)
+            if (product == null) {
+                response.statusResponse = configRemote.getErrorResponse(UNKNOWN_ERROR)
+                call.respond(HttpStatusCode.BadRequest, response)
+            } else {
+                response.product = product
+                call.respond(HttpStatusCode.OK, response)
+            }
+        }
+
+        get("/product/getProductList/{merchantId}") {
+            val reqId = call.parameters["merchantId"]
+            val productId = if (reqId == "null") null else call.parameters["merchantId"]
+            val response = ProductListResponse()
+            val product = productRemote.getProductList(productId)
+            if (product.isEmpty()) {
+                response.statusResponse = configRemote.getErrorResponse(NO_DATA_ATTEMPT)
+                call.respond(HttpStatusCode.BadRequest, response)
+            } else {
+                response.productList = product
+                call.respond(HttpStatusCode.OK, response)
             }
         }
     }

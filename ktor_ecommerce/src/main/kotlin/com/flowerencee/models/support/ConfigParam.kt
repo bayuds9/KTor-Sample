@@ -12,4 +12,5 @@ object ConfigParam{
     const val INVALID_INPUT_DATA = "0009"
     const val UNKNOWN_ERROR = "0010"
     const val FAILED_STORE_FILE = "0011"
+    const val PRODUCT_ID_NOT_FOUND = "0012"
 }
