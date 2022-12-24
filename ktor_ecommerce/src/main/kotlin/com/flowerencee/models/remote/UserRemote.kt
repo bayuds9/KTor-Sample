@@ -7,8 +7,9 @@ import com.flowerencee.models.data.request.RegisterAccountRequest
 import com.flowerencee.models.data.request.UserListByDateRequest
 import com.flowerencee.models.databases.DatabaseManager
 import com.flowerencee.models.repositories.UserRepository
-import com.flowerencee.models.support.Constants
-import com.flowerencee.plugins.convertToFile
+import com.flowerencee.plugins.convertToImageFile
+import com.flowerencee.plugins.encodeFileToBase64
+import com.flowerencee.plugins.profileDirectory
 
 
 class UserRemote : UserRepository {
@@ -19,7 +20,10 @@ class UserRemote : UserRepository {
     }
 
     override fun getUserById(accountId: String): UserAccount? {
-        return database.getUserById(accountId)
+        return database.getUserById(accountId)?.apply {
+            val image64 = (profileDirectory() + "/" + imageFile).encodeFileToBase64()
+            imageFile = image64
+        }
     }
 
     override fun getUserListByDate(request: UserListByDateRequest): List<UserAccount> {
@@ -30,8 +34,8 @@ class UserRemote : UserRepository {
         return database.register(request)
     }
 
-    override fun storeImage(image64: String, profileId: String): Boolean {
-        val store = image64.convertToFile(Constants.PUBLIC_IMAGE_DIRECTORY, "image$profileId.png")
+    override fun storeProfileImage(image64: String, profileId: String): Boolean {
+        val store = image64.convertToImageFile(profileDirectory(), "image$profileId.png")
         println("store image $store")
         return if (store != null) database.updateProfileImage(store, profileId) else false
     }

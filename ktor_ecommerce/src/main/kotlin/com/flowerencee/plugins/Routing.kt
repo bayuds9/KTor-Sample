@@ -32,6 +32,7 @@ fun Application.configureRouting() {
         get("/") {
             call.respond("Hello World")
         }
+
         val userRemote = UserRemote()
         val configRemote = ConfigRemote()
 
@@ -113,13 +114,18 @@ fun Application.configureRouting() {
                     }
                 }
             }
-            val accountId = userRemote.registerAccount(request)
+            val accountId = try {
+                userRemote.registerAccount(request)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                ""
+            }
             if (accountId.isEmpty()) {
                 response = configRemote.getErrorResponse(UNKNOWN_ERROR) ?: StatusResponse()
                 call.respond(HttpStatusCode.ExpectationFailed, response)
                 return@post
             } else {
-                val storeImage = userRemote.storeImage(request.image64, accountId)
+                val storeImage = userRemote.storeProfileImage(request.image64, accountId)
                 println("success store image ")
                 if (storeImage) {
                     response = StatusResponse(false, "SUCCESS")
@@ -135,10 +141,11 @@ fun Application.configureRouting() {
             val request = call.receive<UpdateImageProfileRequest>()
             val response: StatusResponse
             if (request.base64Image.isEmpty()) {
-                call.respond(HttpStatusCode.BadRequest, "invalid image")
+                response = configRemote.getErrorResponse(NO_DATA_ATTEMPT) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
                 return@post
             }
-            val storeImage = userRemote.storeImage(request.base64Image, request.profileId)
+            val storeImage = userRemote.storeProfileImage(request.base64Image, request.profileId)
             if (storeImage) {
                 response = StatusResponse(false, "Success")
                 call.respond(HttpStatusCode.OK, response)

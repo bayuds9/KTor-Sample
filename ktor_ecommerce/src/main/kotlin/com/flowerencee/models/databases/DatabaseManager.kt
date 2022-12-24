@@ -38,10 +38,13 @@ class DatabaseManager {
                     val account = registerAccount(request, profileId)
                     val profile = registerProfile(request, profileId)
                     val merchant = when (request.type == 1 && request.merchantData != null) {
-                        true -> registerMerchant(request.merchantData!!, profileId)
+                        true -> request.merchantData?.let {
+                            registerMerchant(it, profileId)
+                        }
+
                         else -> true
                     }
-                    if (account && profile && merchant) transaction.commit()
+                    if (account && profile && merchant == true) transaction.commit()
                     else transaction.rollback()
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -200,7 +203,7 @@ class DatabaseManager {
     }
 
     private fun generateId(param: PARAMETERS.PARAM_ID): String {
-        var profileId = ""
+        var profileId: String
         do {
             profileId = Base65536.encodeBase65536String("ACC - ${getTimeNow()}".toByteArray())
         } while (profileId.checkId(param) != 0)

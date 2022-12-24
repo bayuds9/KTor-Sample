@@ -11,7 +11,7 @@ interface UserRepository {
     fun getUserById(accountId: String) : UserAccount?
     fun getUserListByDate(request: UserListByDateRequest) : List<UserAccount>
     fun registerAccount(request: RegisterAccountRequest) : String
-    fun storeImage(image64: String, profileId: String) : Boolean
+    fun storeProfileImage(image64: String, profileId: String) : Boolean
     fun validateEmail(email: String): Boolean
     fun validatePhone(phone: String): Boolean
 }
