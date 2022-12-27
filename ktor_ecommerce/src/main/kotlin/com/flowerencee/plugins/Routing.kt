@@ -153,7 +153,7 @@ fun Application.configureRouting() {
 
     routing {
 
-        post("/product/createproduct") {
+        post("/product/createProduct") {
             val request = call.receive<CreateProductRequest>()
             val response: StatusResponse
             val merchantValid = productRemote.validateMerchantId(request.merchantId)
@@ -238,10 +238,38 @@ fun Application.configureRouting() {
             if (execute) {
                 response = configRemote.getErrorResponse(SUCCESS) ?: StatusResponse(false, "Success", SUCCESS)
                 call.respond(HttpStatusCode.OK, response)
-            } else {
+            }
+            else {
                 response = configRemote.getErrorResponse(UNKNOWN_ERROR) ?: StatusResponse()
                 call.respond(HttpStatusCode.BadRequest, response)
             }
+        }
+
+        post("/product/addProductImage") {
+            val request = call.receive<AddProductImageRequest>()
+            val response : StatusResponse
+            if (request.accountId.isEmpty() || request.merchantId.isEmpty() || request.productId.isEmpty() || request.image64.isEmpty()) {
+                response = configRemote.getErrorResponse(INVALID_INPUT_DATA) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
+                return@post
+            }
+            val profileValid = productRemote.validateMerchantAccount(request.accountId, request.merchantId)
+            val productValid = productRemote.validateProductData(request.productId, request.merchantId)
+            if (!profileValid || !productValid) {
+                response = configRemote.getErrorResponse(NO_DATA_ATTEMPT) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
+                return@post
+            }
+            val storeProductImage = productRemote.storeProductImage(request.image64, request.productId)
+            println("storeproductimage $storeProductImage")
+            if (storeProductImage) {
+                response = StatusResponse(false, "SUCCESS")
+                call.respond(HttpStatusCode.OK, response)
+            } else {
+                response = configRemote.getErrorResponse(FAILED_STORE_FILE) ?: StatusResponse()
+                call.respond(HttpStatusCode.ExpectationFailed, response)
+            }
+
         }
     }
 }
