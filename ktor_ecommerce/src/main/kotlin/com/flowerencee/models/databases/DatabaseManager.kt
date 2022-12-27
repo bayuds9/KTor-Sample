@@ -7,6 +7,7 @@ import com.flowerencee.models.support.Base65536
 import com.flowerencee.models.support.PARAMETERS
 import com.flowerencee.plugins.getTimeNow
 import org.ktorm.database.Database
+import org.ktorm.dsl.delete
 import org.ktorm.dsl.eq
 import org.ktorm.dsl.insert
 import org.ktorm.dsl.update
@@ -269,6 +270,38 @@ class DatabaseManager {
             imageList.add(it.fileName)
         }
         return imageList
+    }
+
+    fun validateMerchantAccount(profileId: String, merchantId: String) : Boolean {
+        val profile = kTormDatabase.sequenceOf(AccountTable).toList().firstOrNull { it.id == profileId }
+        val merchant = kTormDatabase.sequenceOf(MerchantTable).toList().firstOrNull { it.merchantId == merchantId }
+        return when (profile?.id) {
+            merchant?.accountId -> true
+            else -> false
+        }
+    }
+    fun validateProductData(productId: String, merchantId: String) : Boolean {
+        val merchant = kTormDatabase.sequenceOf(MerchantTable).toList().firstOrNull { it.merchantId == merchantId }
+        val product = kTormDatabase.sequenceOf(ProductTable).toList().firstOrNull { it.productId == productId }
+        return when (merchant?.merchantId) {
+            product?.merchantId -> true
+            else -> false
+        }
+    }
+    fun deleteProductImage(productName: String, productId : String) : Boolean {
+        return try {
+            val fileData = getProduct().firstOrNull { it.productId == productId }
+            if (fileData != null) {
+                kTormDatabase.delete(ProductImageTable) { imgTable ->
+                    imgTable.fileName eq productName
+                }
+                true
+            }
+            else false
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 
     /*Global Management*/

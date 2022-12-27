@@ -7,6 +7,7 @@ import com.flowerencee.models.support.Constants.STORAGE_DIRECTORY
 import com.flowerencee.models.support.Constants.USER_PROFILE
 import io.ktor.util.*
 import java.io.File
+import java.io.FileNotFoundException
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
@@ -33,6 +34,19 @@ fun String.encodeFileToBase64(): String? {
     } catch (e: Exception) {
         e.printStackTrace()
         null
+    }
+}
+fun String.deleteImageFile(directoryPath: String): Boolean {
+    val file = File("$directoryPath/$this")
+    return try {
+        file.delete()
+        true
+    } catch (e: FileNotFoundException) {
+        e.printStackTrace()
+        false
+    } catch (e: Exception) {
+        e.printStackTrace()
+        false
     }
 }
 

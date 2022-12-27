@@ -13,6 +13,7 @@ import com.flowerencee.models.support.ConfigParam.INVALID_CREDENTIAL
 import com.flowerencee.models.support.ConfigParam.INVALID_INPUT_DATA
 import com.flowerencee.models.support.ConfigParam.NO_DATA_ATTEMPT
 import com.flowerencee.models.support.ConfigParam.PRODUCT_ID_NOT_FOUND
+import com.flowerencee.models.support.ConfigParam.SUCCESS
 import com.flowerencee.models.support.ConfigParam.UNKNOWN_ERROR
 import com.flowerencee.models.support.ConfigParam.USER_ID_NOT_FOUND
 import io.ktor.http.*
@@ -215,6 +216,31 @@ fun Application.configureRouting() {
             } else {
                 response.productList = product
                 call.respond(HttpStatusCode.OK, response)
+            }
+        }
+
+        post("/product/deleteProductImage") {
+            val request = call.receive<DropProductImageRequest>()
+            val response : StatusResponse
+            if (request.accountId.isEmpty() || request.merchantId.isEmpty() || request.productId.isEmpty() || request.imageName.isEmpty()) {
+                response = configRemote.getErrorResponse(INVALID_INPUT_DATA) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
+                return@post
+            }
+            val profileValid = productRemote.validateMerchantAccount(request.accountId, request.merchantId)
+            val productValid = productRemote.validateProductData(request.productId, request.merchantId)
+            if (!profileValid || !productValid) {
+                response = configRemote.getErrorResponse(NO_DATA_ATTEMPT) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
+                return@post
+            }
+            val execute = productRemote.deleteProductImage(request.imageName, request.productId)
+            if (execute) {
+                response = configRemote.getErrorResponse(SUCCESS) ?: StatusResponse(false, "Success", SUCCESS)
+                call.respond(HttpStatusCode.OK, response)
+            } else {
+                response = configRemote.getErrorResponse(UNKNOWN_ERROR) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
             }
         }
     }

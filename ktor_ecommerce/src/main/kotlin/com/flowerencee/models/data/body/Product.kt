@@ -9,5 +9,5 @@ data class Product(
     var productCategory: String? = null,
     var merchantId: String? = null,
     var createdAt: String? = null,
-    var productImage: ArrayList<String>? = null
+    var productImage: ArrayList<ImageData>? = null
 )

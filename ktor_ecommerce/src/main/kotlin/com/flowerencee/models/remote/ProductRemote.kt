@@ -1,10 +1,12 @@
 package com.flowerencee.models.remote
 
+import com.flowerencee.models.data.body.ImageData
 import com.flowerencee.models.data.body.Product
 import com.flowerencee.models.data.request.CreateProductRequest
 import com.flowerencee.models.databases.DatabaseManager
 import com.flowerencee.models.repositories.ProductRepository
 import com.flowerencee.plugins.convertToImageFile
+import com.flowerencee.plugins.deleteImageFile
 import com.flowerencee.plugins.encodeFileToBase64
 import com.flowerencee.plugins.productDirectory
 
@@ -43,9 +45,11 @@ class ProductRemote() : ProductRepository {
         val data = database.getProduct().firstOrNull { it.productId == productId }
         return if (data != null) {
             val imageFiles = database.getProductImages(productId)
-            val imageList = ArrayList<String>()
+            val imageList = ArrayList<ImageData>()
             imageFiles.forEach { file ->
-                (productDirectory() + "/" + file).encodeFileToBase64()?.let { imageList.add(it) }
+                (productDirectory() + "/" + file).encodeFileToBase64()?.let {
+                    imageList.add(ImageData(file, it))
+                }
             }
             Product(
                 productId = productId,
@@ -70,5 +74,26 @@ class ProductRemote() : ProductRepository {
             if (product != null) result.add(product)
         }
         return result
+    }
+
+    override fun validateMerchantAccount(profileId: String, merchantId: String): Boolean {
+        return database.validateMerchantAccount(profileId, merchantId)
+    }
+
+    override fun validateProductData(productId: String, merchantId: String): Boolean {
+        return database.validateProductData(productId, merchantId)
+    }
+
+    override fun deleteProductImage(productName: String, productId: String): Boolean {
+        val deleteFromDB = database.deleteProductImage(productName, productId)
+        if (deleteFromDB) {
+            try {
+                productName.deleteImageFile(productDirectory())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        print("deleted $deleteFromDB")
+        return deleteFromDB
     }
 }
