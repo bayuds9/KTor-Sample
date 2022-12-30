@@ -2,6 +2,7 @@ package com.flowerencee.models.remote
 
 import com.flowerencee.models.data.body.Login
 import com.flowerencee.models.data.body.UserAccount
+import com.flowerencee.models.data.request.ForgotPasswordRequest
 import com.flowerencee.models.data.request.LoginRequest
 import com.flowerencee.models.data.request.RegisterAccountRequest
 import com.flowerencee.models.data.request.UserListByDateRequest
@@ -40,12 +41,16 @@ class UserRemote : UserRepository {
         return if (store != null) database.updateProfileImage(store, profileId) else false
     }
 
-    override fun validateEmail(email: String): Boolean {
-        return database.checkEmail(email)
+    override fun validateEmailNotRegistered(email: String): Boolean {
+        return database.checkEmailNotAttempt(email)
     }
 
-    override fun validatePhone(phone: String): Boolean {
-        return database.checkPhoneNumber(phone)
+    override fun validatePhoneNotRegistered(phone: String): Boolean {
+        return database.checkPhoneNumberNotAttempt(phone)
+    }
+
+    override fun createPassword(newPassword: String, profileId: String): Boolean {
+        return database.createPassword(newPassword, profileId)
     }
 
 }

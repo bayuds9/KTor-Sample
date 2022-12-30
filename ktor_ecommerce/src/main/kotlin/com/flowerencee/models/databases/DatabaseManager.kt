@@ -182,12 +182,26 @@ class DatabaseManager {
         return accountList
     }
 
-    fun checkEmail(email: String): Boolean {
+    fun checkEmailNotAttempt(email: String): Boolean {
         return kTormDatabase.sequenceOf(AccountTable).toList().filter { it.email == email }.toList().isEmpty()
     }
 
-    fun checkPhoneNumber(phone: String): Boolean {
+    fun checkPhoneNumberNotAttempt(phone: String): Boolean {
         return kTormDatabase.sequenceOf(ProfileTable).toList().filter { it.phone == phone }.toList().isEmpty()
+    }
+
+    fun createPassword(newPassword: String, profileId: String) : Boolean {
+        return try {
+            val updateRow = kTormDatabase.update(AccountTable){
+                set(AccountTable.password, newPassword)
+                where { it.id eq profileId }
+            }
+
+            updateRow > 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 
     private fun getAllUser(): List<AccountEntity> {
