@@ -219,6 +219,37 @@ fun Application.configureRouting() {
             }
         }
 
+        delete("/product/deleteProductImage/{productId}/{fileName}") {
+            val accountId = call.request.header("accountId") ?: ""
+            val merchantId = call.request.header("merchantId") ?: ""
+            val productId = call.parameters["productId"] ?: ""
+            val fileName = call.parameters["fileName"] ?: ""
+            val request = DropProductImageRequest(accountId, merchantId, productId, fileName)
+
+            val response : StatusResponse
+            if (request.accountId.isEmpty() || request.merchantId.isEmpty() || request.productId.isEmpty() || request.imageName.isEmpty()) {
+                response = configRemote.getErrorResponse(INVALID_INPUT_DATA) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
+                return@delete
+            }
+            val profileValid = productRemote.validateMerchantAccount(request.accountId, request.merchantId)
+            val productValid = productRemote.validateProductData(request.productId, request.merchantId)
+            if (!profileValid || !productValid) {
+                response = configRemote.getErrorResponse(NO_DATA_ATTEMPT) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
+                return@delete
+            }
+            val execute = productRemote.deleteProductImage(request.imageName, request.productId)
+            if (execute) {
+                response = configRemote.getErrorResponse(SUCCESS) ?: StatusResponse(false, "Success", SUCCESS)
+                call.respond(HttpStatusCode.OK, response)
+            }
+            else {
+                response = configRemote.getErrorResponse(UNKNOWN_ERROR) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
+            }
+        }
+
         post("/product/deleteProductImage") {
             val request = call.receive<DropProductImageRequest>()
             val response : StatusResponse
@@ -268,6 +299,34 @@ fun Application.configureRouting() {
             } else {
                 response = configRemote.getErrorResponse(FAILED_STORE_FILE) ?: StatusResponse()
                 call.respond(HttpStatusCode.ExpectationFailed, response)
+            }
+
+        }
+
+        put("/product/manageProductStock") {
+            val accountId = call.request.header("accountId") ?: ""
+            val merchantId = call.request.header("merchantId") ?: ""
+            val request = call.receive<ManageProductStockRequest>()
+            val response : StatusResponse
+            if (accountId.isEmpty() || merchantId.isEmpty() || request.productId.isEmpty() || request.stock < 1) {
+                response = configRemote.getErrorResponse(INVALID_INPUT_DATA) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
+                return@put
+            }
+            val profileValid = productRemote.validateMerchantAccount(accountId, merchantId)
+            val productValid = productRemote.validateProductData(request.productId, merchantId)
+            if (!profileValid || !productValid) {
+                response = configRemote.getErrorResponse(NO_DATA_ATTEMPT) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
+                return@put
+            }
+            val execute = productRemote.manageProductStock(request)
+            if (execute) {
+                response = configRemote.getErrorResponse(SUCCESS) ?: StatusResponse(false, "Success", SUCCESS)
+                call.respond(HttpStatusCode.OK, response)
+            } else {
+                response = configRemote.getErrorResponse(UNKNOWN_ERROR) ?: StatusResponse()
+                call.respond(HttpStatusCode.BadRequest, response)
             }
 
         }

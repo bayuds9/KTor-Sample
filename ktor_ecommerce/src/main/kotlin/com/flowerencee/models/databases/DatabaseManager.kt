@@ -304,6 +304,31 @@ class DatabaseManager {
         }
     }
 
+    fun updateProductStock(request: ManageProductStockRequest) : Boolean {
+        return try {
+            val product = getProduct().firstOrNull() {it.productId == request.productId}
+            if (product != null) {
+                val currentStock = product.productStock
+                val result = when(request.sign) {
+                    "A" -> currentStock.plus(request.stock)
+                    "R" -> currentStock.minus(request.stock)
+                    else -> null
+                }
+                val updatedRows: Int = if ((request.sign == "R" && request.stock <= currentStock) || request.sign == "A") {
+                    kTormDatabase.update(ProductTable) {
+                        set(ProductTable.productStock, result)
+                        where { it.productId eq request.productId }
+                    }
+                } else 0
+                updatedRows > 0
+            }
+            else false
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
     /*Global Management*/
 
     fun getConfig(): List<ConfigEntity> {

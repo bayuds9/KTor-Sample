@@ -2,6 +2,7 @@ package com.flowerencee.models.remote
 
 import com.flowerencee.models.data.body.ImageData
 import com.flowerencee.models.data.body.Product
+import com.flowerencee.models.data.request.ManageProductStockRequest
 import com.flowerencee.models.data.request.CreateProductRequest
 import com.flowerencee.models.databases.DatabaseManager
 import com.flowerencee.models.repositories.ProductRepository
@@ -95,5 +96,9 @@ class ProductRemote() : ProductRepository {
         }
         print("deleted $deleteFromDB")
         return deleteFromDB
+    }
+
+    override fun manageProductStock(request: ManageProductStockRequest): Boolean {
+        return database.updateProductStock(request)
     }
 }
