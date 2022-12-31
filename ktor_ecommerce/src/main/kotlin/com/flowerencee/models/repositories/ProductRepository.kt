@@ -14,4 +14,5 @@ interface ProductRepository {
     fun validateProductData(productId: String, merchantId: String) : Boolean
     fun deleteProductImage(productName: String, productId: String) : Boolean
     fun manageProductStock(request: ManageProductStockRequest) : Boolean
+    suspend fun getProductCollection(page: Int, size: Int): ArrayList<Product>
 }

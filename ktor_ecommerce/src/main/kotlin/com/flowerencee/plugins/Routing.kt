@@ -5,7 +5,6 @@ import com.flowerencee.models.data.response.*
 import com.flowerencee.models.remote.ConfigRemote
 import com.flowerencee.models.remote.ProductRemote
 import com.flowerencee.models.remote.UserRemote
-import com.flowerencee.models.support.AESEncyption
 import com.flowerencee.models.support.ConfigParam.CRED_NOT_FOUND
 import com.flowerencee.models.support.ConfigParam.DUPLICATE_EMAIL
 import com.flowerencee.models.support.ConfigParam.DUPLICATE_PHONE
@@ -17,6 +16,7 @@ import com.flowerencee.models.support.ConfigParam.PRODUCT_ID_NOT_FOUND
 import com.flowerencee.models.support.ConfigParam.SUCCESS
 import com.flowerencee.models.support.ConfigParam.UNKNOWN_ERROR
 import com.flowerencee.models.support.ConfigParam.USER_ID_NOT_FOUND
+import com.flowerencee.models.support.EncryptUtils
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -151,7 +151,7 @@ fun Application.configureRouting() {
         post("/user/forgotPassword") {
             val request = call.receive<ForgotPasswordRequest>()
             val profileId = call.request.header("accountId") ?: ""
-            val response : StatusResponse
+            val response: StatusResponse
             val validProfile = userRemote.getUserById(profileId)
 
             if (validProfile == null) {
@@ -164,8 +164,7 @@ fun Application.configureRouting() {
             if (profileData != null && profileData.email == request.email && profileData.phone == request.phone) {
                 response = configRemote.getErrorResponse(SUCCESS) ?: StatusResponse()
                 call.respond(HttpStatusCode.OK, response)
-            }
-            else {
+            } else {
                 response = configRemote.getErrorResponse(INVALID_INPUT_DATA) ?: StatusResponse()
                 call.respond(HttpStatusCode.BadRequest, response)
             }
@@ -175,7 +174,7 @@ fun Application.configureRouting() {
             val request = call.receive<CreatePasswordRequest>()
             val profileId = call.request.header("accountId") ?: ""
             val validProfile = userRemote.getUserById(profileId)
-            val response : StatusResponse
+            val response: StatusResponse
 
             if (validProfile == null) {
                 response = configRemote.getErrorResponse(USER_ID_NOT_FOUND) ?: StatusResponse()
@@ -192,8 +191,7 @@ fun Application.configureRouting() {
             if (createPassword) {
                 response = configRemote.getErrorResponse(SUCCESS) ?: StatusResponse()
                 call.respond(HttpStatusCode.OK, response)
-            }
-            else {
+            } else {
                 response = configRemote.getErrorResponse(UNKNOWN_ERROR) ?: StatusResponse()
                 call.respond(HttpStatusCode.BadRequest, response)
             }
@@ -202,9 +200,9 @@ fun Application.configureRouting() {
 
         get("/{raw}") {
             val raw = call.parameters["raw"] ?: ""
-            val result = AESEncyption.encrypt(raw)
+            val result = EncryptUtils().encrypt(raw)
             println(result)
-            call.respond(HttpStatusCode.OK, result.toString())
+            call.respond(HttpStatusCode.OK, result)
         }
     }
 
@@ -229,8 +227,7 @@ fun Application.configureRouting() {
                 response = configRemote.getErrorResponse(UNKNOWN_ERROR) ?: StatusResponse()
                 call.respond(HttpStatusCode.ExpectationFailed, response)
                 return@post
-            }
-            else {
+            } else {
                 val storeProductImage = productRemote.storeProductImage(request.image, productId)
                 println("storeproductimage $storeProductImage")
                 if (storeProductImage) {
@@ -283,7 +280,7 @@ fun Application.configureRouting() {
             val fileName = call.parameters["fileName"] ?: ""
             val request = DropProductImageRequest(accountId, merchantId, productId, fileName)
 
-            val response : StatusResponse
+            val response: StatusResponse
             if (request.accountId.isEmpty() || request.merchantId.isEmpty() || request.productId.isEmpty() || request.imageName.isEmpty()) {
                 response = configRemote.getErrorResponse(INVALID_INPUT_DATA) ?: StatusResponse()
                 call.respond(HttpStatusCode.BadRequest, response)
@@ -300,8 +297,7 @@ fun Application.configureRouting() {
             if (execute) {
                 response = configRemote.getErrorResponse(SUCCESS) ?: StatusResponse(false, "Success", SUCCESS)
                 call.respond(HttpStatusCode.OK, response)
-            }
-            else {
+            } else {
                 response = configRemote.getErrorResponse(UNKNOWN_ERROR) ?: StatusResponse()
                 call.respond(HttpStatusCode.BadRequest, response)
             }
@@ -309,7 +305,7 @@ fun Application.configureRouting() {
 
         post("/product/deleteProductImage") {
             val request = call.receive<DropProductImageRequest>()
-            val response : StatusResponse
+            val response: StatusResponse
             if (request.accountId.isEmpty() || request.merchantId.isEmpty() || request.productId.isEmpty() || request.imageName.isEmpty()) {
                 response = configRemote.getErrorResponse(INVALID_INPUT_DATA) ?: StatusResponse()
                 call.respond(HttpStatusCode.BadRequest, response)
@@ -326,8 +322,7 @@ fun Application.configureRouting() {
             if (execute) {
                 response = configRemote.getErrorResponse(SUCCESS) ?: StatusResponse(false, "Success", SUCCESS)
                 call.respond(HttpStatusCode.OK, response)
-            }
-            else {
+            } else {
                 response = configRemote.getErrorResponse(UNKNOWN_ERROR) ?: StatusResponse()
                 call.respond(HttpStatusCode.BadRequest, response)
             }
@@ -335,7 +330,7 @@ fun Application.configureRouting() {
 
         post("/product/addProductImage") {
             val request = call.receive<AddProductImageRequest>()
-            val response : StatusResponse
+            val response: StatusResponse
             if (request.accountId.isEmpty() || request.merchantId.isEmpty() || request.productId.isEmpty() || request.image64.isEmpty()) {
                 response = configRemote.getErrorResponse(INVALID_INPUT_DATA) ?: StatusResponse()
                 call.respond(HttpStatusCode.BadRequest, response)
@@ -364,7 +359,7 @@ fun Application.configureRouting() {
             val accountId = call.request.header("accountId") ?: ""
             val merchantId = call.request.header("merchantId") ?: ""
             val request = call.receive<ManageProductStockRequest>()
-            val response : StatusResponse
+            val response: StatusResponse
             if (accountId.isEmpty() || merchantId.isEmpty() || request.productId.isEmpty() || request.stock < 1) {
                 response = configRemote.getErrorResponse(INVALID_INPUT_DATA) ?: StatusResponse()
                 call.respond(HttpStatusCode.BadRequest, response)
@@ -387,5 +382,25 @@ fun Application.configureRouting() {
             }
 
         }
+
+        get("/product/getProductByPage/{page}/{size}") {
+            val page = call.parameters["page"]?.toIntOrNull()
+            val size = call.parameters["size"]?.toIntOrNull()
+            val response = ProductListResponse()
+            if (page == null || size == null) {
+                response.statusResponse = configRemote.getErrorResponse(INVALID_INPUT_DATA)
+                call.respond(HttpStatusCode.NotFound, response)
+                return@get
+            }
+
+            val product = productRemote.getProductCollection(page, size)
+            response.productList = product
+            call.respond(HttpStatusCode.OK, response)
+
+        }
+    }
+
+    routing {
+
     }
 }

@@ -101,4 +101,25 @@ class ProductRemote() : ProductRepository {
     override fun manageProductStock(request: ManageProductStockRequest): Boolean {
         return database.updateProductStock(request)
     }
+
+    override suspend fun getProductCollection(page: Int, size: Int): ArrayList<Product> {
+        val productIdList = ArrayList<String>()
+        val result = ArrayList<Product>()
+        database.getProduct().sortedBy { it.createdAt }.forEachIndexed { index, productEntity ->
+            /*if(index<(page*size) && index > (page*size)-size) {
+                data.add(Product(productEntity))
+            }*/
+            if (index <= (page*size) && index >= (page*size)-size) {
+                productIdList.add(productEntity.productId)
+            }
+        }
+        productIdList.forEach {id ->
+            getProduct(id)?.let {
+                result.add(it)
+            }
+        }
+        return result
+        /*return database.getProduct().find().skip(skip = (page - 1) * size).limit(limit = size)
+            .partial(true).descendingSort(Product::lastLoginTime).toList()*/
+    }
 }
