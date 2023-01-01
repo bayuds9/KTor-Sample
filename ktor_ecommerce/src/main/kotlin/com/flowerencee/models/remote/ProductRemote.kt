@@ -22,7 +22,7 @@ class ProductRemote() : ProductRepository {
         val successStore: ArrayList<Boolean> = ArrayList()
         image64.forEachIndexed { index, s ->
             if (s.isNotEmpty()) {
-                val fileName = "product$productId$index.png"
+                val fileName = "img$productId$index.png"
                 val store = s.convertToImageFile(productDirectory(), fileName)
                 when (store?.isNotEmpty()) {
                     true -> {

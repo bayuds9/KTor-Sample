@@ -1,6 +1,5 @@
 package com.flowerencee.models.databases
 
-import com.flowerencee.models.data.body.Product
 import com.flowerencee.models.data.body.UserAccount
 import com.flowerencee.models.data.request.*
 import com.flowerencee.models.databases.entities.*
@@ -12,7 +11,6 @@ import org.ktorm.dsl.delete
 import org.ktorm.dsl.eq
 import org.ktorm.dsl.insert
 import org.ktorm.dsl.update
-import org.ktorm.entity.count
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 import java.time.LocalDate
@@ -139,6 +137,7 @@ class DatabaseManager {
             PARAMETERS.PARAM_ID.PRODUCT -> kTormDatabase.sequenceOf(ProductTable).totalRecords
             PARAMETERS.PARAM_ID.ACCOUNT -> kTormDatabase.sequenceOf(AccountTable).totalRecords
             PARAMETERS.PARAM_ID.MERCHANT -> kTormDatabase.sequenceOf(MerchantTable).totalRecords
+            PARAMETERS.PARAM_ID.TRANSACTIONS -> 0
         }
     }
 
@@ -352,11 +351,17 @@ class DatabaseManager {
     }
 
     private fun generateId(param: PARAMETERS.PARAM_ID): String {
-        var profileId: String
+        var id: String
         do {
-            profileId = Base65536.encodeBase65536String("ACC - ${getTimeNow()}".toByteArray())
-        } while (profileId.checkId(param) != 0)
-        return profileId
+            val head = when(param){
+                PARAMETERS.PARAM_ID.ACCOUNT -> "ACC"
+                PARAMETERS.PARAM_ID.PRODUCT -> "PROD"
+                PARAMETERS.PARAM_ID.MERCHANT -> "MERCH"
+                PARAMETERS.PARAM_ID.TRANSACTIONS -> "TRX"
+            }
+            id = Base65536.encodeBase65536String("$head - ${getTimeNow()}".toByteArray())
+        } while (id.checkId(param) != 0)
+        return id
     }
 
     private fun String.checkId(param: PARAMETERS.PARAM_ID): Int {
@@ -369,6 +374,7 @@ class DatabaseManager {
 
             PARAMETERS.PARAM_ID.MERCHANT -> kTormDatabase.sequenceOf(MerchantTable).toList()
                 .filter { it.merchantId == this }.toList().size
+            PARAMETERS.PARAM_ID.TRANSACTIONS -> 0
         }
     }
 

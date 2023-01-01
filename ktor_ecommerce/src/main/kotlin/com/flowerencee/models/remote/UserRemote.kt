@@ -36,7 +36,7 @@ class UserRemote : UserRepository {
     }
 
     override fun storeProfileImage(image64: String, profileId: String): Boolean {
-        val store = image64.convertToImageFile(profileDirectory(), "image$profileId.png")
+        val store = image64.convertToImageFile(profileDirectory(), "usr$profileId.png")
         println("store image $store")
         return if (store != null) database.updateProfileImage(store, profileId) else false
     }

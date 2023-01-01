@@ -11,6 +11,6 @@ object Constants {
 
 interface PARAMETERS {
     enum class PARAM_ID {
-        PRODUCT, ACCOUNT, MERCHANT
+        PRODUCT, ACCOUNT, MERCHANT, TRANSACTIONS
     }
 }

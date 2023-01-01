@@ -5,6 +5,7 @@ import com.flowerencee.models.data.response.*
 import com.flowerencee.models.remote.ConfigRemote
 import com.flowerencee.models.remote.ProductRemote
 import com.flowerencee.models.remote.UserRemote
+import com.flowerencee.models.support.Base65536
 import com.flowerencee.models.support.ConfigParam.CRED_NOT_FOUND
 import com.flowerencee.models.support.ConfigParam.DUPLICATE_EMAIL
 import com.flowerencee.models.support.ConfigParam.DUPLICATE_PHONE
@@ -202,7 +203,9 @@ fun Application.configureRouting() {
             val raw = call.parameters["raw"] ?: ""
             val result = EncryptUtils().encrypt(raw)
             println(result)
-            call.respond(HttpStatusCode.OK, result)
+            val xx = Base65536.encodeBase65536String(raw.toByteArray())
+            /*val yy = Base65536.decodeBase65536(xx)*/
+            call.respond(HttpStatusCode.OK, "$result\n$xx")
         }
     }
 
