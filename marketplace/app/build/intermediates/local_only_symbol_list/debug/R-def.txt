@@ -366,3 +366,4 @@ style RoundedImage
 style Theme.Marketplace
 xml backup_rules
 xml data_extraction_rules
+xml file_paths
