@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -56,4 +58,14 @@ dependencies {
     def livedata_version = "2.5.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$livedata_version"
+
+
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation 'androidx.room:room-paging:2.5.0-beta01'
+
+    implementation 'androidx.room:room-ktx:2.5.0-beta01'
+    kapt 'androidx.room:room-compiler:2.5.0-beta01'
+
+    implementation "com.google.dagger:hilt-android:2.41"
+    kapt "com.google.dagger:hilt-compiler:2.41"
 }
