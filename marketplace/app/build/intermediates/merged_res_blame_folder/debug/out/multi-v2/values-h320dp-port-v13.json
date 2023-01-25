@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.flowerencee9.marketplace.app-mergeDebugResources-44:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
+            "outputFile": "com.flowerencee9.marketplace.app-mergeDebugResources-45:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\bayud\\AppData\\Local\\Android\\Sdk\\caches\\transforms-3\\377d93b6d56b4dc3cc233be76bd7a98d\\transformed\\material-1.7.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
+                    "source": "C:\\Users\\bayud\\.gradle\\caches\\transforms-3\\377d93b6d56b4dc3cc233be76bd7a98d\\transformed\\material-1.7.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

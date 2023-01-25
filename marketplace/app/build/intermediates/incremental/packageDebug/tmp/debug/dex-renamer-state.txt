@@ -1,4 +1,4 @@
-#Mon Jan 02 17:50:55 ICT 2023
+#Wed Jan 25 23:23:15 WIB 2023
 path.4=12/classes.dex
 path.3=11/classes.dex
 path.2=10/classes.dex
@@ -19,6 +19,7 @@ base.8=E\:\\playground\\ecommerce\\ktor-sample\\marketplace\\app\\build\\interme
 base.7=E\:\\playground\\ecommerce\\ktor-sample\\marketplace\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\15\\classes.dex
 base.6=E\:\\playground\\ecommerce\\ktor-sample\\marketplace\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
 base.5=E\:\\playground\\ecommerce\\ktor-sample\\marketplace\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
+renamed.17=classes18.dex
 renamed.9=classes10.dex
 renamed.16=classes17.dex
 renamed.8=classes9.dex
@@ -28,6 +29,7 @@ renamed.13=classes14.dex
 renamed.12=classes13.dex
 renamed.11=classes12.dex
 renamed.10=classes11.dex
+base.17=E\:\\playground\\ecommerce\\ktor-sample\\marketplace\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
 base.16=E\:\\playground\\ecommerce\\ktor-sample\\marketplace\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\9\\classes.dex
 base.15=E\:\\playground\\ecommerce\\ktor-sample\\marketplace\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
 base.14=E\:\\playground\\ecommerce\\ktor-sample\\marketplace\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
@@ -42,6 +44,7 @@ path.11=4/classes.dex
 renamed.7=classes8.dex
 path.16=9/classes.dex
 renamed.6=classes7.dex
+path.17=classes2.dex
 renamed.5=classes6.dex
 path.14=7/classes.dex
 renamed.4=classes5.dex
