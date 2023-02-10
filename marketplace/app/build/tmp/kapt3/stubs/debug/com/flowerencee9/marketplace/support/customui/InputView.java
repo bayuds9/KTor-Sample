@@ -11,19 +11,19 @@ public final class InputView extends androidx.constraintlayout.widget.Constraint
     private java.lang.Integer inputLength;
     private final android.text.TextWatcher textWatcher = null;
     
-    public InputView(@org.jetbrains.annotations.NotNull
+    public InputView(@org.jetbrains.annotations.NotNull()
     android.content.Context context) {
         super(null);
     }
     
-    public InputView(@org.jetbrains.annotations.NotNull
-    android.content.Context context, @org.jetbrains.annotations.NotNull
+    public InputView(@org.jetbrains.annotations.NotNull()
+    android.content.Context context, @org.jetbrains.annotations.NotNull()
     android.util.AttributeSet attributeSet) {
         super(null);
     }
     
-    public InputView(@org.jetbrains.annotations.NotNull
-    android.content.Context context, @org.jetbrains.annotations.Nullable
+    public InputView(@org.jetbrains.annotations.NotNull()
+    android.content.Context context, @org.jetbrains.annotations.Nullable()
     android.util.AttributeSet attributeSet, int defstyleAttr) {
         super(null);
     }
@@ -34,16 +34,16 @@ public final class InputView extends androidx.constraintlayout.widget.Constraint
     public final void setMinLength(int length) {
     }
     
-    public final void setHint(@org.jetbrains.annotations.NotNull
+    public final void setHint(@org.jetbrains.annotations.NotNull()
     java.lang.String hint) {
     }
     
-    public final void setHelperText(@org.jetbrains.annotations.NotNull
-    java.lang.String text, @org.jetbrains.annotations.Nullable
+    public final void setHelperText(@org.jetbrains.annotations.NotNull()
+    java.lang.String text, @org.jetbrains.annotations.Nullable()
     java.lang.Integer color) {
     }
     
-    public final void setInpuType(@org.jetbrains.annotations.NotNull
+    public final void setInpuType(@org.jetbrains.annotations.NotNull()
     com.flowerencee9.marketplace.support.customui.InputView.TYPE type) {
     }
     
@@ -56,20 +56,20 @@ public final class InputView extends androidx.constraintlayout.widget.Constraint
     public final void setVisiblePassword() {
     }
     
-    public final void setListener(@org.jetbrains.annotations.NotNull
+    public final void setListener(@org.jetbrains.annotations.NotNull()
     com.flowerencee9.marketplace.support.customui.InputView.InputListener inputListener) {
     }
     
-    public final void performListener(@org.jetbrains.annotations.NotNull
+    public final void performListener(@org.jetbrains.annotations.NotNull()
     android.view.View.OnClickListener listener) {
     }
     
-    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.NotNull()
     public final java.lang.String getText() {
         return null;
     }
     
-    public final void setValue(@org.jetbrains.annotations.NotNull
+    public final void setValue(@org.jetbrains.annotations.NotNull()
     java.lang.String value) {
     }
     
@@ -96,7 +96,7 @@ public final class InputView extends androidx.constraintlayout.widget.Constraint
     @kotlin.Metadata(mv = {1, 7, 1}, k = 1, d1 = {"\u0000\u0018\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0000\bf\u0018\u00002\u00020\u0001J\b\u0010\u0002\u001a\u00020\u0003H\u0016J\u0010\u0010\u0004\u001a\u00020\u00032\u0006\u0010\u0005\u001a\u00020\u0006H&\u00a8\u0006\u0007"}, d2 = {"Lcom/flowerencee9/marketplace/support/customui/InputView$InputListener;", "", "afterClickListener", "", "afterTextChanged", "input", "", "app_debug"})
     public static abstract interface InputListener {
         
-        public abstract void afterTextChanged(@org.jetbrains.annotations.NotNull
+        public abstract void afterTextChanged(@org.jetbrains.annotations.NotNull()
         java.lang.String input);
         
         public abstract void afterClickListener();
@@ -104,7 +104,7 @@ public final class InputView extends androidx.constraintlayout.widget.Constraint
         @kotlin.Metadata(mv = {1, 7, 1}, k = 3)
         public static final class DefaultImpls {
             
-            public static void afterClickListener(@org.jetbrains.annotations.NotNull
+            public static void afterClickListener(@org.jetbrains.annotations.NotNull()
             com.flowerencee9.marketplace.support.customui.InputView.InputListener $this) {
             }
         }

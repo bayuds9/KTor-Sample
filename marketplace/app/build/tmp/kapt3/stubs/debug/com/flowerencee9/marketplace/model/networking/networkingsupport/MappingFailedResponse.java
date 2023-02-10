@@ -9,9 +9,9 @@ public final class MappingFailedResponse {
         super();
     }
     
-    @org.jetbrains.annotations.Nullable
-    public final java.lang.Object mappingFailedResponse(@org.jetbrains.annotations.NotNull
-    io.ktor.client.statement.HttpResponse response, @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.Nullable()
+    public final java.lang.Object mappingFailedResponse(@org.jetbrains.annotations.NotNull()
+    io.ktor.client.statement.HttpResponse response, @org.jetbrains.annotations.NotNull()
     kotlin.coroutines.Continuation<? super com.flowerencee9.marketplace.model.data.response.StatusResponse> continuation) {
         return null;
     }

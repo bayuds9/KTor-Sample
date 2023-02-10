@@ -7,11 +7,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection;
+import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection_ProvideExploreFactory;
 import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection_ProvideMainFactory;
+import com.flowerencee9.marketplace.model.networking.repositories.ExploreRepository;
 import com.flowerencee9.marketplace.model.networking.repositories.MainRepository;
 import com.flowerencee9.marketplace.screens.main.MainActivity;
 import com.flowerencee9.marketplace.screens.main.MainViewModel;
 import com.flowerencee9.marketplace.screens.main.MainViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.flowerencee9.marketplace.screens.main.explore.ExploreFragment;
+import com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel;
+import com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel_HiltModules_KeyModule_ProvideFactory;
 import dagger.hilt.android.ActivityRetainedLifecycle;
 import dagger.hilt.android.flags.HiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule;
 import dagger.hilt.android.internal.builders.ActivityComponentBuilder;
@@ -29,7 +34,9 @@ import dagger.hilt.android.internal.modules.ApplicationContextModule_ProvideAppl
 import dagger.hilt.android.internal.modules.ApplicationContextModule_ProvideContextFactory;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.DoubleCheck;
+import dagger.internal.MapBuilder;
 import dagger.internal.Preconditions;
+import dagger.internal.SetBuilder;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
@@ -310,6 +317,10 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
     }
 
     @Override
+    public void injectExploreFragment(ExploreFragment exploreFragment) {
+    }
+
+    @Override
     public DefaultViewModelFactories.InternalFactoryFactory getHiltInternalFactoryFactory() {
       return activityCImpl.getHiltInternalFactoryFactory();
     }
@@ -365,7 +376,7 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
 
     @Override
     public Set<String> getViewModelKeys() {
-      return Collections.<String>singleton(MainViewModel_HiltModules_KeyModule_ProvideFactory.provide());
+      return SetBuilder.<String>newSetBuilder(2).add(ExploreViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(MainViewModel_HiltModules_KeyModule_ProvideFactory.provide()).build();
     }
 
     @Override
@@ -391,6 +402,8 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
 
     private final ViewModelCImpl viewModelCImpl = this;
 
+    private Provider<ExploreViewModel> exploreViewModelProvider;
+
     private Provider<MainViewModel> mainViewModelProvider;
 
     private ViewModelCImpl(SingletonCImpl singletonCImpl,
@@ -404,12 +417,13 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
 
     @SuppressWarnings("unchecked")
     private void initialize(final SavedStateHandle savedStateHandleParam) {
-      this.mainViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
+      this.exploreViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
+      this.mainViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
     }
 
     @Override
     public Map<String, Provider<ViewModel>> getHiltViewModelMap() {
-      return Collections.<String, Provider<ViewModel>>singletonMap("com.flowerencee9.marketplace.screens.main.MainViewModel", ((Provider) mainViewModelProvider));
+      return MapBuilder.<String, Provider<ViewModel>>newMapBuilder(2).put("com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel", ((Provider) exploreViewModelProvider)).put("com.flowerencee9.marketplace.screens.main.MainViewModel", ((Provider) mainViewModelProvider)).build();
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -433,7 +447,10 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
       @Override
       public T get() {
         switch (id) {
-          case 0: // com.flowerencee9.marketplace.screens.main.MainViewModel 
+          case 0: // com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel 
+          return (T) new ExploreViewModel(singletonCImpl.exploreRepository());
+
+          case 1: // com.flowerencee9.marketplace.screens.main.MainViewModel 
           return (T) new MainViewModel(singletonCImpl.mainRepository());
 
           default: throw new AssertionError(id);
@@ -519,6 +536,10 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
     private SingletonCImpl(ApplicationContextModule applicationContextModuleParam) {
       this.applicationContextModule = applicationContextModuleParam;
 
+    }
+
+    private ExploreRepository exploreRepository() {
+      return Injection_ProvideExploreFactory.provideExplore(ApplicationContextModule_ProvideContextFactory.provideContext(applicationContextModule));
     }
 
     private MainRepository mainRepository() {

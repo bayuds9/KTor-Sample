@@ -10,5 +10,5 @@ import kotlinx.serialization.Serializable
 @Parcelize
 data class DiscoverListResponse(
     @SerializedName("productList")
-    var productList: List<Product?>? = null
+    var productList: ArrayList<Product?>? = null
 ) : Parcelable

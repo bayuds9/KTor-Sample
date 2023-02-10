@@ -13,6 +13,7 @@ import android.text.SpannableStringBuilder
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.util.Base64
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
@@ -233,4 +234,9 @@ fun String.toMaskAnonymous(): String {
         }
     }
     return sb.toString()
+}
+
+fun decodeBase64ToImageBitmap(base64: String): Bitmap {
+    val decodeString = Base64.decode(base64, Base64.DEFAULT)
+    return BitmapFactory.decodeByteArray(decodeString, 0, decodeString.size)
 }

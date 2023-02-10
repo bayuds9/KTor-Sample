@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp"
-                android:padding="10dp"
+                android:paddingVertical="10dp"
                 android:background="?attr/colorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/containerPromo"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +70,7 @@
                     android:id="@+id/titleTop"
                     android:textSize="18sp"
                     android:textColor="?attr/colorOnPrimary"
+                    android:layout_marginStart="10dp"
                     android:text="@string/produk_terbaru"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

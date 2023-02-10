@@ -3,6 +3,8 @@ package com.flowerencee9.marketplace;
 import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection;
 import com.flowerencee9.marketplace.screens.main.MainActivity_GeneratedInjector;
 import com.flowerencee9.marketplace.screens.main.MainViewModel_HiltModules;
+import com.flowerencee9.marketplace.screens.main.explore.ExploreFragment_GeneratedInjector;
+import com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel_HiltModules;
 import dagger.Binds;
 import dagger.Component;
 import dagger.Module;
@@ -153,6 +155,7 @@ public final class MarketplaceApp_HiltComponents {
 
   @Subcomponent(
       modules = {
+          ExploreViewModel_HiltModules.KeyModule.class,
           HiltWrapper_ActivityRetainedComponentManager_LifecycleModule.class,
           MainViewModel_HiltModules.KeyModule.class,
           ActivityCBuilderModule.class,
@@ -192,6 +195,7 @@ public final class MarketplaceApp_HiltComponents {
 
   @Subcomponent(
       modules = {
+          ExploreViewModel_HiltModules.BindsModule.class,
           HiltWrapper_HiltViewModelFactory_ViewModelModule.class,
           MainViewModel_HiltModules.BindsModule.class
       }
@@ -218,7 +222,8 @@ public final class MarketplaceApp_HiltComponents {
       modules = ViewWithFragmentCBuilderModule.class
   )
   @FragmentScoped
-  public abstract static class FragmentC implements FragmentComponent,
+  public abstract static class FragmentC implements ExploreFragment_GeneratedInjector,
+      FragmentComponent,
       DefaultViewModelFactories.FragmentEntryPoint,
       ViewComponentManager.ViewWithFragmentComponentBuilderEntryPoint,
       GeneratedComponent {

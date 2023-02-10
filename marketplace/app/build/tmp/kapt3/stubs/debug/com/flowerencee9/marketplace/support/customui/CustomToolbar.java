@@ -8,19 +8,19 @@ public final class CustomToolbar extends androidx.constraintlayout.widget.Constr
     private com.flowerencee9.marketplace.databinding.LayoutCustomToolbarBinding binding;
     private com.flowerencee9.marketplace.support.customui.CustomToolbar.ToolbarListener searchListener;
     
-    public CustomToolbar(@org.jetbrains.annotations.NotNull
+    public CustomToolbar(@org.jetbrains.annotations.NotNull()
     android.content.Context context) {
         super(null);
     }
     
-    public CustomToolbar(@org.jetbrains.annotations.NotNull
-    android.content.Context context, @org.jetbrains.annotations.NotNull
+    public CustomToolbar(@org.jetbrains.annotations.NotNull()
+    android.content.Context context, @org.jetbrains.annotations.NotNull()
     android.util.AttributeSet attrs) {
         super(null);
     }
     
-    public CustomToolbar(@org.jetbrains.annotations.NotNull
-    android.content.Context context, @org.jetbrains.annotations.NotNull
+    public CustomToolbar(@org.jetbrains.annotations.NotNull()
+    android.content.Context context, @org.jetbrains.annotations.NotNull()
     android.util.AttributeSet attrs, int defStyleAttr) {
         super(null);
     }
@@ -28,26 +28,26 @@ public final class CustomToolbar extends androidx.constraintlayout.widget.Constr
     private final void init(android.content.Context context, android.util.AttributeSet attrs) {
     }
     
-    public final void setTitle(@org.jetbrains.annotations.NotNull
+    public final void setTitle(@org.jetbrains.annotations.NotNull()
     java.lang.String title) {
     }
     
-    public final void setLeftItem(@org.jetbrains.annotations.Nullable
-    java.lang.Integer drawable, @org.jetbrains.annotations.NotNull
+    public final void setLeftItem(@org.jetbrains.annotations.Nullable()
+    java.lang.Integer drawable, @org.jetbrains.annotations.NotNull()
     kotlin.jvm.functions.Function0<kotlin.Unit> leftClicked) {
     }
     
-    public final void setRightItem(@org.jetbrains.annotations.Nullable
-    java.lang.Integer drawable, @org.jetbrains.annotations.NotNull
+    public final void setRightItem(@org.jetbrains.annotations.Nullable()
+    java.lang.Integer drawable, @org.jetbrains.annotations.NotNull()
     kotlin.jvm.functions.Function0<kotlin.Unit> rightClicked) {
     }
     
-    public final void setRightItemTwo(@org.jetbrains.annotations.Nullable
-    java.lang.Integer drawable, @org.jetbrains.annotations.NotNull
+    public final void setRightItemTwo(@org.jetbrains.annotations.Nullable()
+    java.lang.Integer drawable, @org.jetbrains.annotations.NotNull()
     kotlin.jvm.functions.Function0<kotlin.Unit> rightClicked) {
     }
     
-    public final void showSearchText(@org.jetbrains.annotations.NotNull
+    public final void showSearchText(@org.jetbrains.annotations.NotNull()
     com.flowerencee9.marketplace.support.customui.CustomToolbar.ToolbarListener listener) {
     }
     
@@ -57,7 +57,7 @@ public final class CustomToolbar extends androidx.constraintlayout.widget.Constr
     @kotlin.Metadata(mv = {1, 7, 1}, k = 1, d1 = {"\u0000\u0016\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0010\u000e\n\u0000\bf\u0018\u00002\u00020\u0001J\u0010\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u0005H&\u00a8\u0006\u0006"}, d2 = {"Lcom/flowerencee9/marketplace/support/customui/CustomToolbar$ToolbarListener;", "", "afterChanged", "", "input", "", "app_debug"})
     public static abstract interface ToolbarListener {
         
-        public abstract void afterChanged(@org.jetbrains.annotations.NotNull
+        public abstract void afterChanged(@org.jetbrains.annotations.NotNull()
         java.lang.String input);
     }
 }
