@@ -136,6 +136,9 @@
     <string name="download_report">Unduh Laporan</string>
     <string name="status_pesanan">Status Pesanan</string>
     <string name="report">Laporan</string>
+    <string name="retry">Retry</string>
+
+    <string name="current_stock">Stok saat ini</string>
 
     <string-array name="month_list">
         <item>Januari</item>

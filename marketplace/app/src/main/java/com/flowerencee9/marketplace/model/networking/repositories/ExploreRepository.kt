@@ -2,18 +2,21 @@ package com.flowerencee9.marketplace.model.networking.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.flowerencee9.marketplace.model.data.objects.Promo
 import com.flowerencee9.marketplace.model.data.response.DiscoverListResponse
 import com.flowerencee9.marketplace.model.data.response.Product
 import com.flowerencee9.marketplace.model.data.response.StatusResponse
 import com.flowerencee9.marketplace.model.networking.ktor.KtorService
 import com.flowerencee9.marketplace.model.networking.networkingsupport.MappingFailedResponse
 import com.flowerencee9.marketplace.support.base.BaseConstants
+import com.flowerencee9.marketplace.support.generateDummyPromo
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,6 +31,9 @@ class ExploreRepository @Inject constructor(private val service: KtorService) {
 
     private val _discoverListResponse: MutableLiveData<ArrayList<Product>> = MutableLiveData()
     val discoverListResponse get() = _discoverListResponse
+
+    private val _promo : MutableLiveData<ArrayList<Promo>> = MutableLiveData()
+    val promo : LiveData<ArrayList<Promo>> get() = _promo
 
     fun discoverProduct(merchantId: String? = null) {
         _loadingStates.value = true
@@ -70,6 +76,15 @@ class ExploreRepository @Inject constructor(private val service: KtorService) {
                 }
                 else -> _statusResponse.value = StatusResponse("Error Attempt", "Something Went Wrong", false)
             }
+            _loadingStates.value = false
+        }
+    }
+
+    fun dummyPromo() {
+        _loadingStates.value = true
+        CoroutineScope(Dispatchers.Main).launch {
+            _promo.value = generateDummyPromo(10)
+            delay(1000)
             _loadingStates.value = false
         }
     }
