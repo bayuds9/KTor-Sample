@@ -386,9 +386,9 @@ fun Application.configureRouting() {
 
         }
 
-        get("/product/getProductByPage/{page}/{size}") {
-            val page = call.parameters["page"]?.toIntOrNull()
-            val size = call.parameters["size"]?.toIntOrNull()
+        get("/product/getProductByPage") {
+            val page = call.request.queryParameters["page"]?.toIntOrNull()
+            val size = call.request.queryParameters["size"]?.toIntOrNull()
             val response = ProductListResponse()
             if (page == null || size == null) {
                 response.statusResponse = configRemote.getErrorResponse(INVALID_INPUT_DATA)
