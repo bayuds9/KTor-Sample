@@ -13,7 +13,7 @@ import com.flowerencee9.marketplace.R
 import com.flowerencee9.marketplace.databinding.FragmentExploreBinding
 import com.flowerencee9.marketplace.model.data.objects.Promo
 import com.flowerencee9.marketplace.model.data.response.Product
-import com.flowerencee9.marketplace.screens.chats.lists.ChatListActivity
+import com.flowerencee9.marketplace.screens.chats.lists.ChatActivity
 import com.flowerencee9.marketplace.screens.main.explore.adapter.PromoAdapter
 import com.flowerencee9.marketplace.screens.main.explore.adapter.TopAdapter
 import com.flowerencee9.marketplace.support.utils.isLogin
@@ -77,7 +77,7 @@ class ExploreFragment : Fragment() {
 
     private fun setupView() {
         val rightClicked: () -> Unit = {
-            startActivity(ChatListActivity.myIntent(requireContext()))
+            startActivity(ChatActivity.myIntent(requireContext()))
         }
 
         with(binding) {

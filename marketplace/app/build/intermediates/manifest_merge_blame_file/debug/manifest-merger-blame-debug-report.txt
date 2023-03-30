@@ -72,77 +72,76 @@
 39-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:27:9-54
 40        android:supportsRtl="true"
 40-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:28:9-35
-41        android:testOnly="true"
-42        android:theme="@style/Theme.Marketplace"
-42-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:29:9-49
-43        android:usesCleartextTraffic="true" >
-43-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:26:9-44
-44        <activity
-44-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:31:9-39:20
-45            android:name="com.flowerencee9.marketplace.screens.main.MainActivity"
-45-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:32:13-54
-46            android:exported="true" >
-46-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:33:13-36
-47            <intent-filter>
-47-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:34:13-38:29
-48                <action android:name="android.intent.action.MAIN" />
-48-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:35:17-69
-48-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:35:25-66
-49
-50                <category android:name="android.intent.category.LAUNCHER" />
-50-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:37:17-77
-50-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:37:27-74
-51            </intent-filter>
-52        </activity>
-53
-54        <provider
-54-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:41:9-49:20
-55            android:name="androidx.core.content.FileProvider"
-55-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:42:13-62
-56            android:authorities="com.flowerencee9.marketplace"
-56-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:43:13-63
-57            android:exported="false"
-57-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:44:13-37
-58            android:grantUriPermissions="true" >
-58-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:45:13-47
-59            <meta-data
-59-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:46:13-48:54
-60                android:name="android.support.FILE_PROVIDER_PATHS"
-60-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:47:17-67
-61                android:resource="@xml/file_paths" />
-61-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:48:17-51
-62        </provider>
-63
-64        <service
-64-->[androidx.room:room-runtime:2.5.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\99f30033d0301106aec6b6bb3c4dc9fb\transformed\room-runtime-2.5.0\AndroidManifest.xml:24:9-28:63
-65            android:name="androidx.room.MultiInstanceInvalidationService"
-65-->[androidx.room:room-runtime:2.5.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\99f30033d0301106aec6b6bb3c4dc9fb\transformed\room-runtime-2.5.0\AndroidManifest.xml:25:13-74
-66            android:directBootAware="true"
-66-->[androidx.room:room-runtime:2.5.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\99f30033d0301106aec6b6bb3c4dc9fb\transformed\room-runtime-2.5.0\AndroidManifest.xml:26:13-43
-67            android:exported="false" />
-67-->[androidx.room:room-runtime:2.5.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\99f30033d0301106aec6b6bb3c4dc9fb\transformed\room-runtime-2.5.0\AndroidManifest.xml:27:13-37
-68
-69        <provider
-69-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-70            android:name="androidx.startup.InitializationProvider"
-70-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
-71            android:authorities="com.flowerencee9.marketplace.androidx-startup"
-71-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
-72            android:exported="false" >
-72-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
-73            <meta-data
-73-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-74                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-74-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
-75                android:value="androidx.startup" />
-75-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
-76            <meta-data
-76-->[androidx.lifecycle:lifecycle-process:2.4.1] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\a7b49272de30e9099f1fc325a1a73339\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
-77                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-77-->[androidx.lifecycle:lifecycle-process:2.4.1] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\a7b49272de30e9099f1fc325a1a73339\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
-78                android:value="androidx.startup" />
-78-->[androidx.lifecycle:lifecycle-process:2.4.1] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\a7b49272de30e9099f1fc325a1a73339\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
-79        </provider>
-80    </application>
-81
-82</manifest>
+41        android:theme="@style/Theme.Marketplace"
+41-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:29:9-49
+42        android:usesCleartextTraffic="true" >
+42-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:26:9-44
+43        <activity
+43-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:31:9-39:20
+44            android:name="com.flowerencee9.marketplace.screens.main.MainActivity"
+44-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:32:13-54
+45            android:exported="true" >
+45-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:33:13-36
+46            <intent-filter>
+46-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:34:13-38:29
+47                <action android:name="android.intent.action.MAIN" />
+47-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:35:17-69
+47-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:35:25-66
+48
+49                <category android:name="android.intent.category.LAUNCHER" />
+49-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:37:17-77
+49-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:37:27-74
+50            </intent-filter>
+51        </activity>
+52
+53        <provider
+53-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:41:9-49:20
+54            android:name="androidx.core.content.FileProvider"
+54-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:42:13-62
+55            android:authorities="com.flowerencee9.marketplace"
+55-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:43:13-63
+56            android:exported="false"
+56-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:44:13-37
+57            android:grantUriPermissions="true" >
+57-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:45:13-47
+58            <meta-data
+58-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:46:13-48:54
+59                android:name="android.support.FILE_PROVIDER_PATHS"
+59-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:47:17-67
+60                android:resource="@xml/file_paths" />
+60-->E:\playground\ecommerce\ktor-sample\marketplace\app\src\main\AndroidManifest.xml:48:17-51
+61        </provider>
+62
+63        <service
+63-->[androidx.room:room-runtime:2.5.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\99f30033d0301106aec6b6bb3c4dc9fb\transformed\room-runtime-2.5.0\AndroidManifest.xml:24:9-28:63
+64            android:name="androidx.room.MultiInstanceInvalidationService"
+64-->[androidx.room:room-runtime:2.5.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\99f30033d0301106aec6b6bb3c4dc9fb\transformed\room-runtime-2.5.0\AndroidManifest.xml:25:13-74
+65            android:directBootAware="true"
+65-->[androidx.room:room-runtime:2.5.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\99f30033d0301106aec6b6bb3c4dc9fb\transformed\room-runtime-2.5.0\AndroidManifest.xml:26:13-43
+66            android:exported="false" />
+66-->[androidx.room:room-runtime:2.5.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\99f30033d0301106aec6b6bb3c4dc9fb\transformed\room-runtime-2.5.0\AndroidManifest.xml:27:13-37
+67
+68        <provider
+68-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+69            android:name="androidx.startup.InitializationProvider"
+69-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+70            android:authorities="com.flowerencee9.marketplace.androidx-startup"
+70-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+71            android:exported="false" >
+71-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+72            <meta-data
+72-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+73                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+73-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+74                android:value="androidx.startup" />
+74-->[androidx.emoji2:emoji2:1.2.0] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\0ac63f79e07e844c4467ab119b250b6d\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+75            <meta-data
+75-->[androidx.lifecycle:lifecycle-process:2.4.1] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\a7b49272de30e9099f1fc325a1a73339\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+76                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+76-->[androidx.lifecycle:lifecycle-process:2.4.1] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\a7b49272de30e9099f1fc325a1a73339\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+77                android:value="androidx.startup" />
+77-->[androidx.lifecycle:lifecycle-process:2.4.1] E:\Dicoding\ne\gradle-6.6\caches\transforms-3\a7b49272de30e9099f1fc325a1a73339\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+78        </provider>
+79    </application>
+80
+81</manifest>

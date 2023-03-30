@@ -7,34 +7,34 @@ public final class CallbackProductSummary extends androidx.recyclerview.widget.D
     private final java.util.ArrayList<com.flowerencee9.marketplace.model.data.response.Product> oldList = null;
     private final java.util.ArrayList<com.flowerencee9.marketplace.model.data.response.Product> newList = null;
     
-    public CallbackProductSummary(@org.jetbrains.annotations.NotNull()
-    java.util.ArrayList<com.flowerencee9.marketplace.model.data.response.Product> oldList, @org.jetbrains.annotations.NotNull()
+    public CallbackProductSummary(@org.jetbrains.annotations.NotNull
+    java.util.ArrayList<com.flowerencee9.marketplace.model.data.response.Product> oldList, @org.jetbrains.annotations.NotNull
     java.util.ArrayList<com.flowerencee9.marketplace.model.data.response.Product> newList) {
         super();
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public int getOldListSize() {
         return 0;
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public int getNewListSize() {
         return 0;
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
         return false;
     }
     
-    @java.lang.Override()
+    @java.lang.Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
         return false;
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @java.lang.Override()
+    @org.jetbrains.annotations.Nullable
+    @java.lang.Override
     public java.lang.Object getChangePayload(int oldItemPosition, int newItemPosition) {
         return null;
     }

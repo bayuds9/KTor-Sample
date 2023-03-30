@@ -2,26 +2,12 @@ package com.flowerencee9.marketplace.support.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.flowerencee9.marketplace.BuildConfig
-import com.flowerencee9.marketplace.support.utils.PREF.Companion.DEVICE_ID
-import com.flowerencee9.marketplace.support.utils.PREF.Companion.IS_SELLER
-import com.flowerencee9.marketplace.support.utils.PREF.Companion.USER_ID
-import com.flowerencee9.marketplace.support.utils.PREF.Companion.USER_NAME
-
-interface PREF {
-    companion object {
-        const val NAME = BuildConfig.APPLICATION_ID
-        const val USER_ID = "USER_ID"
-        const val USER_NAME = "USER_NAME"
-        const val DEVICE_ID = "DEVICE_ID"
-        const val IS_SELLER = "IS_SELLER"
-    }
-}
+import com.flowerencee9.marketplace.support.sealed.Pref
 
 class SharedPref(context: Context) {
     private var sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(PREF.NAME, Context.MODE_PRIVATE)
-    val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        context.getSharedPreferences(Pref.NAME.value, Context.MODE_PRIVATE)
+    private val editor: SharedPreferences.Editor = sharedPreferences.edit()
     fun putString(key: String, value: String) {
         editor.putString(key, value)
             .apply()
@@ -45,22 +31,22 @@ class SharedPref(context: Context) {
 
 fun Context.isLogin(): Boolean {
     val sharedPref = SharedPref(this)
-    return sharedPref.getString(USER_ID).isNotEmpty()
+    return sharedPref.getString(Pref.USERID.value).isNotEmpty()
 }
 
 fun Context.getUserName(): String {
     val sharedPref = SharedPref(this)
-    return sharedPref.getString(USER_NAME)
+    return sharedPref.getString(Pref.USERNAME.value)
 }
 
-fun Context.getUserId() = SharedPref(this).getString(USER_ID)
+fun Context.getUserId() = SharedPref(this).getString(Pref.USERID.value)
 
 fun Context.getDeviceId(): String {
     val sharedPref = SharedPref(this)
-    return sharedPref.getString(DEVICE_ID)
+    return sharedPref.getString(Pref.DEVICE.value)
 }
 
-fun Context.isUserSeller() = SharedPref(this).getBoolean(IS_SELLER)
+fun Context.isUserSeller() = SharedPref(this).getBoolean(Pref.SELLER.value)
 
 fun Context.removeUserPref() {
     val sharedPref = SharedPref(this)

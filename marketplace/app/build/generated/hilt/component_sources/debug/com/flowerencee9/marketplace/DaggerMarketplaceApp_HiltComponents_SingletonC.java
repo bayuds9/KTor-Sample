@@ -7,16 +7,37 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection;
+import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection_ProvideAuthFactory;
 import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection_ProvideExploreFactory;
 import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection_ProvideMainFactory;
+import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection_ProvideTransactionFactory;
+import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection_ProvideUserFactory;
+import com.flowerencee9.marketplace.model.networking.repositories.AuthRepository;
 import com.flowerencee9.marketplace.model.networking.repositories.ExploreRepository;
 import com.flowerencee9.marketplace.model.networking.repositories.MainRepository;
+import com.flowerencee9.marketplace.model.networking.repositories.TransactionRepository;
+import com.flowerencee9.marketplace.model.networking.repositories.UserRepository;
+import com.flowerencee9.marketplace.screens.auth.createpassword.CreatePasswordViewModel;
+import com.flowerencee9.marketplace.screens.auth.createpassword.CreatePasswordViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.flowerencee9.marketplace.screens.auth.forgotpassword.ForgotPasswordViewModel;
+import com.flowerencee9.marketplace.screens.auth.forgotpassword.ForgotPasswordViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.flowerencee9.marketplace.screens.auth.login.LoginViewModel;
+import com.flowerencee9.marketplace.screens.auth.login.LoginViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.flowerencee9.marketplace.screens.auth.otp.OtpViewModel;
+import com.flowerencee9.marketplace.screens.auth.otp.OtpViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.flowerencee9.marketplace.screens.auth.register.RegisterViewModel;
+import com.flowerencee9.marketplace.screens.auth.register.RegisterViewModel_HiltModules_KeyModule_ProvideFactory;
 import com.flowerencee9.marketplace.screens.main.MainActivity;
 import com.flowerencee9.marketplace.screens.main.MainViewModel;
 import com.flowerencee9.marketplace.screens.main.MainViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.flowerencee9.marketplace.screens.main.account.AccountViewModel;
+import com.flowerencee9.marketplace.screens.main.account.AccountViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.flowerencee9.marketplace.screens.main.cart.CartFragment;
 import com.flowerencee9.marketplace.screens.main.explore.ExploreFragment;
 import com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel;
 import com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.flowerencee9.marketplace.screens.main.summary.SummaryViewModel;
+import com.flowerencee9.marketplace.screens.main.summary.SummaryViewModel_HiltModules_KeyModule_ProvideFactory;
 import dagger.hilt.android.ActivityRetainedLifecycle;
 import dagger.hilt.android.flags.HiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule;
 import dagger.hilt.android.internal.builders.ActivityComponentBuilder;
@@ -317,6 +338,10 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
     }
 
     @Override
+    public void injectCartFragment(CartFragment cartFragment) {
+    }
+
+    @Override
     public void injectExploreFragment(ExploreFragment exploreFragment) {
     }
 
@@ -376,7 +401,7 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
 
     @Override
     public Set<String> getViewModelKeys() {
-      return SetBuilder.<String>newSetBuilder(2).add(ExploreViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(MainViewModel_HiltModules_KeyModule_ProvideFactory.provide()).build();
+      return SetBuilder.<String>newSetBuilder(9).add(AccountViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(CreatePasswordViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(ExploreViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(ForgotPasswordViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(LoginViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(MainViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(OtpViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(RegisterViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(SummaryViewModel_HiltModules_KeyModule_ProvideFactory.provide()).build();
     }
 
     @Override
@@ -402,9 +427,23 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
 
     private final ViewModelCImpl viewModelCImpl = this;
 
+    private Provider<AccountViewModel> accountViewModelProvider;
+
+    private Provider<CreatePasswordViewModel> createPasswordViewModelProvider;
+
     private Provider<ExploreViewModel> exploreViewModelProvider;
 
+    private Provider<ForgotPasswordViewModel> forgotPasswordViewModelProvider;
+
+    private Provider<LoginViewModel> loginViewModelProvider;
+
     private Provider<MainViewModel> mainViewModelProvider;
+
+    private Provider<OtpViewModel> otpViewModelProvider;
+
+    private Provider<RegisterViewModel> registerViewModelProvider;
+
+    private Provider<SummaryViewModel> summaryViewModelProvider;
 
     private ViewModelCImpl(SingletonCImpl singletonCImpl,
         ActivityRetainedCImpl activityRetainedCImpl, SavedStateHandle savedStateHandleParam) {
@@ -417,13 +456,20 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
 
     @SuppressWarnings("unchecked")
     private void initialize(final SavedStateHandle savedStateHandleParam) {
-      this.exploreViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
-      this.mainViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
+      this.accountViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
+      this.createPasswordViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
+      this.exploreViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 2);
+      this.forgotPasswordViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 3);
+      this.loginViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 4);
+      this.mainViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 5);
+      this.otpViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 6);
+      this.registerViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 7);
+      this.summaryViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 8);
     }
 
     @Override
     public Map<String, Provider<ViewModel>> getHiltViewModelMap() {
-      return MapBuilder.<String, Provider<ViewModel>>newMapBuilder(2).put("com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel", ((Provider) exploreViewModelProvider)).put("com.flowerencee9.marketplace.screens.main.MainViewModel", ((Provider) mainViewModelProvider)).build();
+      return MapBuilder.<String, Provider<ViewModel>>newMapBuilder(9).put("com.flowerencee9.marketplace.screens.main.account.AccountViewModel", ((Provider) accountViewModelProvider)).put("com.flowerencee9.marketplace.screens.auth.createpassword.CreatePasswordViewModel", ((Provider) createPasswordViewModelProvider)).put("com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel", ((Provider) exploreViewModelProvider)).put("com.flowerencee9.marketplace.screens.auth.forgotpassword.ForgotPasswordViewModel", ((Provider) forgotPasswordViewModelProvider)).put("com.flowerencee9.marketplace.screens.auth.login.LoginViewModel", ((Provider) loginViewModelProvider)).put("com.flowerencee9.marketplace.screens.main.MainViewModel", ((Provider) mainViewModelProvider)).put("com.flowerencee9.marketplace.screens.auth.otp.OtpViewModel", ((Provider) otpViewModelProvider)).put("com.flowerencee9.marketplace.screens.auth.register.RegisterViewModel", ((Provider) registerViewModelProvider)).put("com.flowerencee9.marketplace.screens.main.summary.SummaryViewModel", ((Provider) summaryViewModelProvider)).build();
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -447,11 +493,32 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
       @Override
       public T get() {
         switch (id) {
-          case 0: // com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel 
+          case 0: // com.flowerencee9.marketplace.screens.main.account.AccountViewModel 
+          return (T) new AccountViewModel(singletonCImpl.userRepository());
+
+          case 1: // com.flowerencee9.marketplace.screens.auth.createpassword.CreatePasswordViewModel 
+          return (T) new CreatePasswordViewModel(singletonCImpl.authRepository());
+
+          case 2: // com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel 
           return (T) new ExploreViewModel(singletonCImpl.exploreRepository());
 
-          case 1: // com.flowerencee9.marketplace.screens.main.MainViewModel 
+          case 3: // com.flowerencee9.marketplace.screens.auth.forgotpassword.ForgotPasswordViewModel 
+          return (T) new ForgotPasswordViewModel(singletonCImpl.authRepository());
+
+          case 4: // com.flowerencee9.marketplace.screens.auth.login.LoginViewModel 
+          return (T) new LoginViewModel(singletonCImpl.authRepository());
+
+          case 5: // com.flowerencee9.marketplace.screens.main.MainViewModel 
           return (T) new MainViewModel(singletonCImpl.mainRepository());
+
+          case 6: // com.flowerencee9.marketplace.screens.auth.otp.OtpViewModel 
+          return (T) new OtpViewModel(singletonCImpl.authRepository());
+
+          case 7: // com.flowerencee9.marketplace.screens.auth.register.RegisterViewModel 
+          return (T) new RegisterViewModel(singletonCImpl.authRepository());
+
+          case 8: // com.flowerencee9.marketplace.screens.main.summary.SummaryViewModel 
+          return (T) new SummaryViewModel(singletonCImpl.transactionRepository());
 
           default: throw new AssertionError(id);
         }
@@ -538,12 +605,24 @@ public final class DaggerMarketplaceApp_HiltComponents_SingletonC {
 
     }
 
+    private UserRepository userRepository() {
+      return Injection_ProvideUserFactory.provideUser(ApplicationContextModule_ProvideContextFactory.provideContext(applicationContextModule));
+    }
+
+    private AuthRepository authRepository() {
+      return Injection_ProvideAuthFactory.provideAuth(ApplicationContextModule_ProvideContextFactory.provideContext(applicationContextModule));
+    }
+
     private ExploreRepository exploreRepository() {
       return Injection_ProvideExploreFactory.provideExplore(ApplicationContextModule_ProvideContextFactory.provideContext(applicationContextModule));
     }
 
     private MainRepository mainRepository() {
       return Injection_ProvideMainFactory.provideMain(ApplicationContextModule_ProvideContextFactory.provideContext(applicationContextModule));
+    }
+
+    private TransactionRepository transactionRepository() {
+      return Injection_ProvideTransactionFactory.provideTransaction(ApplicationContextModule_ProvideContextFactory.provideContext(applicationContextModule));
     }
 
     @Override

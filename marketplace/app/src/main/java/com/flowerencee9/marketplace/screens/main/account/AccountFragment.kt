@@ -3,14 +3,18 @@ package com.flowerencee9.marketplace.screens.main.account
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flowerencee9.marketplace.R
 import com.flowerencee9.marketplace.databinding.FragmentAccountBinding
+import com.flowerencee9.marketplace.model.data.objects.PlainItem
+import com.flowerencee9.marketplace.support.classes.PlainTextAdapter
 import com.flowerencee9.marketplace.support.utils.*
 
 class AccountFragment : Fragment() {
@@ -21,11 +25,13 @@ class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel by viewModels<AccountViewModel>()
+
     private val rightClicked: () -> Unit = {
         requireActivity().showAlertDialog(
             object : AlertDialogListener {
                 override fun onPositive() {
-                    binding.root.snackbar("Logout")
+                    binding.root.snackBar("Logout")
                     requireContext().removeUserPref()
                     Handler(Looper.getMainLooper()).postDelayed({
                         requireActivity().finishAndRemoveTask()
@@ -33,7 +39,7 @@ class AccountFragment : Fragment() {
                 }
 
                 override fun onNegative() {
-                    binding.root.snackbar("cancel")
+                    binding.root.snackBar("cancel")
                 }
 
             },
@@ -60,6 +66,36 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupView()
     }
+    override fun onResume() {
+        super.onResume()
+        initRequestData()
+        initLogic()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initRequestData() {
+        viewModel.getUser()
+    }
+
+    private fun initLogic() {
+        with(viewModel){
+            listProfile.observe(viewLifecycleOwner){
+                binding.rvProfileData.adapter = PlainTextAdapter(requireContext(), it) {plain ->
+                    plainClicked(plain)
+                }
+            }
+            profileData.observe(viewLifecycleOwner){
+                /*Glide.with(requireContext()).load(it.picture).into(
+                    if (requireContext().isUserSeller()) binding.ivContainer
+                    else binding.ivProfile
+                )*/
+            }
+        }
+    }
 
     private fun setupView() {
         with(binding) {
@@ -82,13 +118,8 @@ class AccountFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        initRequestData()
-    }
-
-    private fun initRequestData() {
-
+    private fun plainClicked(item: PlainItem) {
+        Log.d(TAG, "clicked $item")
     }
 
 }

@@ -2913,6 +2913,7 @@ id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
+id error_msg
 id etAddress
 id etDOB
 id etEmail
@@ -3125,12 +3126,14 @@ id position
 id postLayout
 id pressed
 id productImage
+id progress_bar
 id progress_circular
 id progress_horizontal
 id radio
 id ratio
 id rectangles
 id restart
+id retry_button
 id reverse
 id reverseSawtooth
 id right
@@ -3501,6 +3504,7 @@ layout layout_input
 layout layout_item_explore
 layout layout_item_latest
 layout layout_item_latest_product
+layout layout_item_loading
 layout layout_item_plain_list
 layout layout_item_report
 layout layout_item_top
@@ -3647,6 +3651,7 @@ string chats
 string clear_text_end_icon_content_description
 string confirm
 string confirm_book
+string current_stock
 string customer
 string date
 string delete
@@ -3806,6 +3811,7 @@ string register_cancellation_desc
 string register_here
 string register_title
 string report
+string retry
 string review
 string save
 string search_menu_title

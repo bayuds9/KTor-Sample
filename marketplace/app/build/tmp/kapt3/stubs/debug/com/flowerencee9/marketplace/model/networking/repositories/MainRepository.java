@@ -10,28 +10,28 @@ public final class MainRepository {
     private final androidx.lifecycle.MutableLiveData<com.flowerencee9.marketplace.model.data.response.StatusResponse> _statusResponse = null;
     private final androidx.lifecycle.MutableLiveData<com.flowerencee9.marketplace.model.data.response.DiscoverListResponse> _discoverListResponse = null;
     
-    @javax.inject.Inject()
-    public MainRepository(@org.jetbrains.annotations.NotNull()
+    @javax.inject.Inject
+    public MainRepository(@org.jetbrains.annotations.NotNull
     com.flowerencee9.marketplace.model.networking.ktor.KtorService service) {
         super();
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final androidx.lifecycle.LiveData<java.lang.Boolean> getLoadingStates() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final androidx.lifecycle.LiveData<com.flowerencee9.marketplace.model.data.response.StatusResponse> getStatusResponse() {
         return null;
     }
     
-    @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.NotNull
     public final androidx.lifecycle.MutableLiveData<com.flowerencee9.marketplace.model.data.response.DiscoverListResponse> getDiscoverListResponse() {
         return null;
     }
     
-    public final void discoverProduct(@org.jetbrains.annotations.Nullable()
+    public final void discoverProduct(@org.jetbrains.annotations.Nullable
     java.lang.String merchantId) {
     }
 }

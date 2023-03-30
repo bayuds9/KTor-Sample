@@ -6,24 +6,24 @@ import java.lang.System;
 public final class KtorServiceImp implements com.flowerencee9.marketplace.model.networking.ktor.KtorService {
     private final io.ktor.client.HttpClient client = null;
     
-    public KtorServiceImp(@org.jetbrains.annotations.NotNull()
+    public KtorServiceImp(@org.jetbrains.annotations.NotNull
     io.ktor.client.HttpClient client) {
         super();
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @java.lang.Override()
-    public java.lang.Object callGetHttp(@org.jetbrains.annotations.NotNull()
-    io.ktor.client.request.HttpRequestBuilder httpRequestBuilder, @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.Nullable
+    @java.lang.Override
+    public java.lang.Object callGetHttp(@org.jetbrains.annotations.NotNull
+    io.ktor.client.request.HttpRequestBuilder httpRequestBuilder, @org.jetbrains.annotations.NotNull
     kotlin.coroutines.Continuation<? super io.ktor.client.statement.HttpResponse> continuation) {
         return null;
     }
     
-    @org.jetbrains.annotations.Nullable()
-    @java.lang.Override()
-    public java.lang.Object callPostHttp(@org.jetbrains.annotations.NotNull()
-    io.ktor.client.request.HttpRequestBuilder httpRequestBuilder, @org.jetbrains.annotations.NotNull()
-    java.lang.Object request, @org.jetbrains.annotations.NotNull()
+    @org.jetbrains.annotations.Nullable
+    @java.lang.Override
+    public java.lang.Object callPostHttp(@org.jetbrains.annotations.NotNull
+    io.ktor.client.request.HttpRequestBuilder httpRequestBuilder, @org.jetbrains.annotations.NotNull
+    java.lang.Object request, @org.jetbrains.annotations.NotNull
     kotlin.coroutines.Continuation<? super io.ktor.client.statement.HttpResponse> continuation) {
         return null;
     }

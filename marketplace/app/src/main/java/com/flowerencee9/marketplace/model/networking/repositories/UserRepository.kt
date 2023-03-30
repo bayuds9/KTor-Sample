@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 
 class UserRepository @Inject constructor(private val service: KtorService, private val context: Context) {
     companion object {
@@ -34,7 +33,7 @@ class UserRepository @Inject constructor(private val service: KtorService, priva
     private var _listProfile : MutableLiveData<ArrayList<PlainItem>> = MutableLiveData()
     val listProfile : LiveData<ArrayList<PlainItem>> get() = _listProfile
 
-    fun getUserData(profileId: String) {
+    fun getDummyUser() {
         _loadingStates.value = true
         CoroutineScope(Dispatchers.Main).launch {
             _profileData.value = dummyUserData()
@@ -46,11 +45,13 @@ class UserRepository @Inject constructor(private val service: KtorService, priva
 
     private fun generateUserData(data: ProfileData): ArrayList<PlainItem> {
         val list = ArrayList<PlainItem>()
-        list.add(PlainItem(context.getString(R.string.profile_name), data.name.toString() ))
-        list.add(PlainItem(context.getString(R.string.profile_phone), data.phone.toString(), VALUE_PHONE ))
-        list.add(PlainItem(context.getString(R.string.profile_email), data.email.toString() ))
-        list.add(PlainItem(context.getString(R.string.profile_dob), data.dob.toString() ))
-        list.add(PlainItem(context.getString(R.string.profile_address), data.address.toString() ))
+        with(context){
+            list.add(PlainItem(getString(R.string.profile_name), data.name.toString() ))
+            list.add(PlainItem(getString(R.string.profile_phone), data.phone.toString(), VALUE_PHONE ))
+            list.add(PlainItem(getString(R.string.profile_email), data.email.toString() ))
+            list.add(PlainItem(getString(R.string.profile_dob), data.dob.toString() ))
+            list.add(PlainItem(getString(R.string.profile_address), data.address.toString() ))
+        }
         return list
     }
 }

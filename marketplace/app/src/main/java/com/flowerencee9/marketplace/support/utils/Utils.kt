@@ -97,14 +97,14 @@ fun Context.spanText(
     return spannable
 }
 
-fun View.snackbar(message: String) {
+fun View.snackBar(message: String) {
     Snackbar.make(
         this,
         message,
         Snackbar.LENGTH_LONG
-    ).also { snackbar ->
-        snackbar.setAction("Ok") {
-            snackbar.dismiss()
+    ).also { snack ->
+        snack.setAction("Ok") {
+            snack.dismiss()
         }
     }.show()
 }

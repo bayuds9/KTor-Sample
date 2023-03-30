@@ -1,10 +1,18 @@
 package com.flowerencee9.marketplace;
 
 import com.flowerencee9.marketplace.model.networking.networkingsupport.Injection;
+import com.flowerencee9.marketplace.screens.auth.createpassword.CreatePasswordViewModel_HiltModules;
+import com.flowerencee9.marketplace.screens.auth.forgotpassword.ForgotPasswordViewModel_HiltModules;
+import com.flowerencee9.marketplace.screens.auth.login.LoginViewModel_HiltModules;
+import com.flowerencee9.marketplace.screens.auth.otp.OtpViewModel_HiltModules;
+import com.flowerencee9.marketplace.screens.auth.register.RegisterViewModel_HiltModules;
 import com.flowerencee9.marketplace.screens.main.MainActivity_GeneratedInjector;
 import com.flowerencee9.marketplace.screens.main.MainViewModel_HiltModules;
+import com.flowerencee9.marketplace.screens.main.account.AccountViewModel_HiltModules;
+import com.flowerencee9.marketplace.screens.main.cart.CartFragment_GeneratedInjector;
 import com.flowerencee9.marketplace.screens.main.explore.ExploreFragment_GeneratedInjector;
 import com.flowerencee9.marketplace.screens.main.explore.ExploreViewModel_HiltModules;
+import com.flowerencee9.marketplace.screens.main.summary.SummaryViewModel_HiltModules;
 import dagger.Binds;
 import dagger.Component;
 import dagger.Module;
@@ -155,11 +163,18 @@ public final class MarketplaceApp_HiltComponents {
 
   @Subcomponent(
       modules = {
+          AccountViewModel_HiltModules.KeyModule.class,
+          CreatePasswordViewModel_HiltModules.KeyModule.class,
           ExploreViewModel_HiltModules.KeyModule.class,
+          ForgotPasswordViewModel_HiltModules.KeyModule.class,
           HiltWrapper_ActivityRetainedComponentManager_LifecycleModule.class,
+          LoginViewModel_HiltModules.KeyModule.class,
           MainViewModel_HiltModules.KeyModule.class,
           ActivityCBuilderModule.class,
-          ViewModelCBuilderModule.class
+          ViewModelCBuilderModule.class,
+          OtpViewModel_HiltModules.KeyModule.class,
+          RegisterViewModel_HiltModules.KeyModule.class,
+          SummaryViewModel_HiltModules.KeyModule.class
       }
   )
   @ActivityRetainedScoped
@@ -195,9 +210,16 @@ public final class MarketplaceApp_HiltComponents {
 
   @Subcomponent(
       modules = {
+          AccountViewModel_HiltModules.BindsModule.class,
+          CreatePasswordViewModel_HiltModules.BindsModule.class,
           ExploreViewModel_HiltModules.BindsModule.class,
+          ForgotPasswordViewModel_HiltModules.BindsModule.class,
           HiltWrapper_HiltViewModelFactory_ViewModelModule.class,
-          MainViewModel_HiltModules.BindsModule.class
+          LoginViewModel_HiltModules.BindsModule.class,
+          MainViewModel_HiltModules.BindsModule.class,
+          OtpViewModel_HiltModules.BindsModule.class,
+          RegisterViewModel_HiltModules.BindsModule.class,
+          SummaryViewModel_HiltModules.BindsModule.class
       }
   )
   @ViewModelScoped
@@ -222,7 +244,8 @@ public final class MarketplaceApp_HiltComponents {
       modules = ViewWithFragmentCBuilderModule.class
   )
   @FragmentScoped
-  public abstract static class FragmentC implements ExploreFragment_GeneratedInjector,
+  public abstract static class FragmentC implements CartFragment_GeneratedInjector,
+      ExploreFragment_GeneratedInjector,
       FragmentComponent,
       DefaultViewModelFactories.FragmentEntryPoint,
       ViewComponentManager.ViewWithFragmentComponentBuilderEntryPoint,
